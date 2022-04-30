@@ -1,86 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_floor_ceiling_macos.c                           :+:      :+:    :+:   */
+/*   04_floor_ceiling.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohlee <yohlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
-/*   Updated: 2020/07/21 08:11:30 by yohlee           ###   ########.fr       */
+/*   Updated: 2022/04/30 15:54:26 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
-#include "key_macos.h"
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_EXIT	17
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
-#define width 640
-#define height 480
-
-typedef struct	s_img
-{
-	void	*img;
-	int		*data;
-
-	int		size_l;
-	int		bpp;
-	int		endian;
-	int		img_width;
-	int		img_height;
-}				t_img;
-
-typedef struct	s_info
-{
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	void	*mlx;
-	void	*win;
-	t_img	img;
-	int		buf[height][width];
-	int		**texture;
-	double	moveSpeed;
-	double	rotSpeed;
-}				t_info;
-
-int	worldMap[mapWidth][mapHeight] =
-									{
-										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
-										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
-										{8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
-										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
-										{8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
-										{7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
-										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
-										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
-										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
-										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
-										{7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
-										{2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
-										{2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-										{2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-										{1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
-										{2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
-										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
-										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-										{2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
-									};
+#include "04_header.h"
 
 void	draw(t_info *info)
 {
@@ -219,7 +149,7 @@ void	calc(t_info *info)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0) hit = 1;
+			if (info->map[mapX][mapY] > 0) hit = 1;
 		}
 		if (side == 0)
 			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
@@ -238,7 +168,7 @@ void	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// texturing calculations
-		int texNum = worldMap[mapX][mapY] - 1;
+		int texNum = info->map[mapX][mapY] - 1;
 
 		// calculate value of wallX
 		double wallX;
@@ -346,17 +276,17 @@ int	key_press(int key, t_info *info)
 {
 	if (key == K_W)
 	{
-		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX += info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
 			info->posY += info->dirY * info->moveSpeed;
 	}
 	//move backwards if no wall behind you
 	if (key == K_S)
 	{
-		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
 	//rotate to the right
@@ -415,8 +345,10 @@ void	load_texture(t_info *info)
 }
 
 
-int	main(void)
+int	main(int argc, char** argv)
 {
+	if (argc != 2)
+		return 0;
 	t_info info;
 	info.mlx = mlx_init();
 
@@ -426,6 +358,7 @@ int	main(void)
 	info.dirY = 0.0;
 	info.planeX = 0.0;
 	info.planeY = 0.66;
+	info.map = read_map(argv[1]);
 
 	for (int i = 0; i < height; i++)
 	{

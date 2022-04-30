@@ -50,7 +50,7 @@ The floor casting(쉽게 바닥캐스팅이라고 하겠습니다.)
 #define mapWidth 24
 #define mapHeight 24
 
-int worldMap[mapWidth][mapHeight]=
+int info->map[mapWidth][mapHeight]=
 {
   {8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
   {8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
@@ -248,7 +248,7 @@ int main(int /*argc*/, char */*argv*/[])
           side = 1;
         }
         //Check if ray has hit a wall
-        if (worldMap[mapX][mapY] > 0) hit = 1;
+        if (info->map[mapX][mapY] > 0) hit = 1;
       }
 
       //Calculate distance of perpendicular ray (Euclidean distance will give fisheye effect!)
@@ -264,7 +264,7 @@ int main(int /*argc*/, char */*argv*/[])
       int drawEnd = lineHeight / 2 + h / 2;
       if(drawEnd >= h) drawEnd = h - 1;
       //texturing calculations
-      int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+      int texNum = info->map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
       //calculate value of wallX
       double wallX; //where exactly the wall was hit
@@ -312,14 +312,14 @@ int main(int /*argc*/, char */*argv*/[])
     //move forward if no wall in front of you
     if (keyDown(SDLK_UP))
     {
-      if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+      if(info->map[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
+      if(info->map[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
     }
     //move backwards if no wall behind you
     if (keyDown(SDLK_DOWN))
     {
-      if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+      if(info->map[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
+      if(info->map[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
     }
     //rotate to the right
     if (keyDown(SDLK_RIGHT))

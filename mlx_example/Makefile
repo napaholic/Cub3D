@@ -3,10 +3,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS = 01_untextured_raycast.c
+# SRCS = 01_untextured_raycast.c
 # SRCS = 02_textured_raycast.c
 # SRCS = 03_img_textured_raycast.c
-# SRCS = 04_floor_ceiling.c
+SRCS = 04_floor_ceiling.c 04_read_map.c
 # SRCS = 05_sprite_raycast.c
 OBJS = $(SRCS:.c=.o)
 

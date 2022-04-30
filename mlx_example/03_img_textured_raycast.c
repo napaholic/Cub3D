@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_img_textured_raycast_macos.c                    :+:      :+:    :+:   */
+/*   03_img_textured_raycast.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohlee <yohlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:03 by yohlee            #+#    #+#             */
-/*   Updated: 2020/07/21 08:10:51 by yohlee           ###   ########.fr       */
+/*   Updated: 2022/04/30 15:54:26 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct	s_info
 	double	rotSpeed;
 }				t_info;
 
-int	worldMap[mapWidth][mapHeight] =
+int	info->map[mapWidth][mapHeight] =
 						{
 							{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
 							{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
@@ -161,7 +161,7 @@ void	calc(t_info *info)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0) hit = 1;
+			if (info->map[mapX][mapY] > 0) hit = 1;
 		}
 		if (side == 0)
 			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
@@ -180,7 +180,7 @@ void	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// texturing calculations
-		int texNum = worldMap[mapX][mapY];
+		int texNum = info->map[mapX][mapY];
 
 		// calculate value of wallX
 		double wallX;
@@ -227,17 +227,17 @@ int	key_press(int key, t_info *info)
 {
 	if (key == K_W)
 	{
-		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX += info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
 			info->posY += info->dirY * info->moveSpeed;
 	}
 	//move backwards if no wall behind you
 	if (key == K_S)
 	{
-		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
 	//rotate to the right
