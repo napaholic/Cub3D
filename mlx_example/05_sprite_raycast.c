@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_sprite_raycast.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakang <hakang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:28:54 by yohlee            #+#    #+#             */
-/*   Updated: 2020/07/27 13:57:18 by hakang           ###   ########.fr       */
+/*   Updated: 2022/04/30 15:54:26 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	sortSprites(int *order, double *dist, int amount)
 	free(sprites);
 }
 
-int	worldMap[mapWidth][mapHeight] =
+int	info->map[mapWidth][mapHeight] =
 									{
 										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
 										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
@@ -311,7 +311,7 @@ void	calc(t_info *info)
 			side = 1;
 			}
 			//Check if ray has hit a wall
-			if(worldMap[mapX][mapY] > 0) hit = 1;
+			if(info->map[mapX][mapY] > 0) hit = 1;
 		}
 		//Calculate distance of perpendicular ray (Euclidean distance will give fisheye effect!)
 		if(side == 0) perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
@@ -324,7 +324,7 @@ void	calc(t_info *info)
 		int drawEnd = lineHeight / 2 + height / 2;
 		if(drawEnd >= height) drawEnd = height - 1;
 		//texturing calculations
-		int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		int texNum = info->map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 		//calculate value of wallX
 		double wallX; //where exactly the wall was hit
 		if (side == 0) wallX = info->posY + perpWallDist * rayDirY;
@@ -435,17 +435,17 @@ void	key_update(t_info *info)
 {
 	if (info->key_w)
 	{
-		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX += info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
 			info->posY += info->dirY * info->moveSpeed;
 	}
 	//move backwards if no wall behind you
 	if (info->key_s)
 	{
-		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->map[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
-		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+		if (!info->map[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
 	//rotate to the right
