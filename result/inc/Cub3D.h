@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/01 15:41:32 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/01 15:50:41 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ typedef struct	s_info
 	double planeY;
 	double	moveSpeed;
 	double	rotSpeed;
-	
-	t_img	img;
 	int		buf[height][width];
 	int		**texture;
+	int **map;
 	
 	t_mlx	mlx;
-	int **map;
+	t_img	img;
+
 
 }				t_info;
 
