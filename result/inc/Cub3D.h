@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/01 15:50:41 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/01 17:25:32 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* include headers */
 #include "mlx/mlx.h"
+#include "gnl/get_next_line.h"
 #include <math.h>
 #include <fcntl.h> //file open
 /*일단추가한헤더...*/
@@ -66,6 +67,13 @@ typedef struct	s_mlx
 	void	*win;
 }				t_mlx;
 
+typedef struct	s_map
+{
+	int **map;
+	unsigned int mapWidth;
+	unsigned int mapHeight;
+}				t_map;
+
 /* main struct */
 typedef struct	s_info
 {
@@ -79,16 +87,19 @@ typedef struct	s_info
 	double	rotSpeed;
 	int		buf[height][width];
 	int		**texture;
-	int **map;
 	
-	t_mlx	mlx;
-	t_img	img;
+	t_mlx	*mlx;
+	t_img	*img;
+	t_map	*map;
 
 
 }				t_info;
 
 /* function part */
+void parse_map(char *argv, t_info *info);
 
-
+/* utils */
+int	ft_strlen(char *str);
+void	error_exit(char *str);
 
 # endif
