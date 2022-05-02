@@ -1,4 +1,4 @@
-#include "Cud3D.h"
+#include "../inc/Cub3D.h"
 
 int **save_int(char **map)
 {
@@ -59,7 +59,7 @@ int main(int argc, char * argv[])
 	// 0. init
 
 	// 1. map
-	info.map = parse_map(argv[1]);
+	info.map = read_map(argv[1]);
 	
 	// 2. textureLoad
 	
