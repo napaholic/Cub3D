@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/02 16:44:40 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/02 21:22:24 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct	s_mlx
 
 typedef struct	s_map
 {
+	char *line_map;
 	char **world_map;
 	unsigned int mapWidth;
 	unsigned int mapHeight;
@@ -88,6 +89,7 @@ typedef struct	s_info
 	double	rotSpeed;
 	int		buf[height][width];
 	int		**texture;
+	// bool	key_chk[4] = {0, };
 	
 	t_mlx	*mlx;
 	t_img	*img;
@@ -97,8 +99,13 @@ typedef struct	s_info
 }				t_info;
 
 /* Cub3D.c */
-int **save_int(char **map);
-int	**read_map(char *argv);
+// int **save_int(char **map);
+
+/* init_map.c */
+void init_map(t_info *info);
+void get_map_size(t_info *info);
+char	**read_world_map(char *argv);
+ char	*read_line_map(char *argv);
 
 /* utils */
 int	ft_strlen(char *str);

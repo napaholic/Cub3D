@@ -1,9 +1,10 @@
 NAME = Cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS = ./src/Cub3D.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c
+SRCS = ./src/Cub3D.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c \
+		./src/init_map.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

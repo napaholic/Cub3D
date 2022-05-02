@@ -1,48 +1,6 @@
 #include "../inc/Cub3D.h"
 
-int **save_int(char **map)
-{
-	int **ret_map = (int **)malloc(sizeof(int *) * info->map->mapWidth + 1);
 
-	for (int l = 0; l < info->map->mapWidth; l++)
-	{
-		ret_map[l] = (int *)malloc(sizeof(int) * info->map->mapHeight + 1);
-	}
-
-	for (int i = 0; i < info->map->mapWidth; i++)
-		for (int j = 0; j < info->map->mapHeight; j++)
-			ret_map[i][j] = map[i][j] - '0';
-	return (ret_map);
-}
-
-int	**read_map(char *argv)
-{
-	int		fd;
-	char	*tmp;
-	int		i;
-	char	**map;
-
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR\n");
-	i = 0;
-	while ((get_next_line(fd, &tmp)))
-	{
-		free(tmp);
-		i++;
-	}
-	free(tmp);
-	map = (char **)malloc(sizeof(char *) * (i + 2));
-	close(fd);
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR\n");
-	i = 0;
-	while ((get_next_line(fd, &map[i])))
-		i++;
-	map[++i] = 0;
-	return (save_int(map));
-}
 	//x// 1. 파일 읽기
 	//x// 1-1. 빈 파일인지 확인
 	//x// 1-2. "\n"단위로 spilt
@@ -56,10 +14,19 @@ int main(int argc, char * argv[])
 {
 	t_info info;
 
+	if (argc != 2)
+	{
+		printf("%s", "usage:./cub3D 'map'");
+		return 0;
+	}
 	// 0. init
-
+	init_map(&info);
+	 info.map->line_map = read_line_map(argv[1]);
+	get_map_size(&info);
 	// 1. map
-	info.map = read_map(argv[1]);
+	info.map->world_map = read_world_map(argv[1]);
+	printf("%d\n", info.map->mapHeight);
+	printf("%d\n", info.map->mapWidth);
 	
 	// 2. textureLoad
 	
