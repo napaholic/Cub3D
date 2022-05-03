@@ -12,11 +12,14 @@ void utils_bzero(void *s, size_t n)
 }
 
 //이 함수를 malloc, bzero로 바꾸기
-void init_map(t_info *info)
+int init_map(t_info *info)
 {
+	if (!(info->map = (t_map *)malloc(sizeof(t_map))))
+		return (0);
+	utils_bzero(info->map, sizeof(t_map));
 	info->map->mapWidth = 0;
 	info->map->mapHeight = 0;
-	return ;
+	return (1);
 }
 
 //index로 세기 때문에 0이면 1칸 있는거

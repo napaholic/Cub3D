@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/03 10:42:20 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/03 15:22:53 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@
 #include <string.h>
 
 /* mlx */
-# define X_KEY_PRESS 2
-# define X_KEY_RELEASE 3
-# define X_KEY_EXIT	17
+# define X_KEY_PRESS	2
+# define X_KEY_RELEASE	3
+# define X_CLICK_EXIT	17
 
 /* key */
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_DOWN 125
-# define KEY_UP 126
+# define KEY_ESC	53
+# define KEY_A		0
+# define KEY_D		2
+# define KEY_S		1
+# define KEY_W		13
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+# define KEY_DOWN	125
+# define KEY_UP		126
 
 /* display */
 #define width 640
@@ -54,18 +54,18 @@
 /* image struct */
 typedef struct	s_img
 {
-	void	*img;
-	int		*data;
-	int		endian;
-	int		img_width;
-	int		img_height;
+	void *img;
+	int *data;
+	int endian;
+	int img_width;
+	int img_height;
 }				t_img;
 
 /* mlx struct */
 typedef struct	s_mlx
 {
-	void	*mlx;
-	void	*win;
+	void *mlxptr;
+	void *winptr;
 }				t_mlx;
 
 typedef struct	s_map
@@ -78,6 +78,14 @@ typedef struct	s_map
 	int color; //F, C
 }				t_map;
 
+typedef struct	s_key
+{
+	int left;
+	int right;
+	int down;
+	int up;
+}				t_key;
+
 /* main struct */
 typedef struct	s_info
 {
@@ -87,12 +95,13 @@ typedef struct	s_info
 	double dirY;
 	double planeX;
 	double planeY;
-	double	moveSpeed;
-	double	rotSpeed;
-	int		buf[height][width];
-	int		**texture;
-	// bool	key_chk[4] = {0, };
+	double moveSpeed;
+	double rotSpeed;
+	int buf[height][width];
+	int **texture;
+	// bool	key_check[4] = {0, 0, 0, 0};
 	
+	t_key	*key;
 	t_mlx	*mlx;
 	t_img	*img;
 	t_map	*map;
@@ -101,9 +110,16 @@ typedef struct	s_info
 
 /* Cub3D.c */
 // int **save_int(char **map);
+int init_mlx(t_info *info);
+int init_key(t_info *info);
+int key_press(int key, t_info *info);
+int key_release(int key, t_info *info);
+int close_win(int keycode, int x, int y, void *param);
+
 
 /* init_map.c */
-void init_map(t_info *info);
+void utils_bzero(void *s, size_t n);
+int init_map(t_info *info);
 void get_map_size(t_info *info);
 char **read_world_map(char *argv);
 int read_map_path(char *line, char fir, char sec, t_info *info);
