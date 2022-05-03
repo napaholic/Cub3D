@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/01 17:25:32 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/02 21:22:24 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define CUB3D_H
 
 /* include headers */
-#include "mlx/mlx.h"
-#include "gnl/get_next_line.h"
+#include "../mlx/mlx.h"
+#include "../gnl/get_next_line.h"
 #include <math.h>
 #include <fcntl.h> //file open
+
 /*일단추가한헤더...*/
 # include <stdio.h>
 # include <stdlib.h>
@@ -45,10 +46,10 @@
 #define height 480
 
 /*일단 추가한 고정길이... -> 직접 재는걸로 변경 필요~*/
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
+// #define texWidth 64
+// #define texHeight 64
+// #define mapWidth 24
+// #define mapHeight 24
 
 /* image struct */
 typedef struct	s_img
@@ -69,7 +70,8 @@ typedef struct	s_mlx
 
 typedef struct	s_map
 {
-	int **map;
+	char *line_map;
+	char **world_map;
 	unsigned int mapWidth;
 	unsigned int mapHeight;
 }				t_map;
@@ -87,6 +89,7 @@ typedef struct	s_info
 	double	rotSpeed;
 	int		buf[height][width];
 	int		**texture;
+	// bool	key_chk[4] = {0, };
 	
 	t_mlx	*mlx;
 	t_img	*img;
@@ -95,8 +98,14 @@ typedef struct	s_info
 
 }				t_info;
 
-/* function part */
-void parse_map(char *argv, t_info *info);
+/* Cub3D.c */
+// int **save_int(char **map);
+
+/* init_map.c */
+void init_map(t_info *info);
+void get_map_size(t_info *info);
+char	**read_world_map(char *argv);
+ char	*read_line_map(char *argv);
 
 /* utils */
 int	ft_strlen(char *str);
