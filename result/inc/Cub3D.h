@@ -80,6 +80,7 @@ typedef struct	s_map
 
 typedef struct	s_key
 {
+	//테스트
 	int key_a;
 	int key_w;
 	int key_s;
