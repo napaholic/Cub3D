@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/02 21:22:24 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/03 10:42:20 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct	s_map
 	char **world_map;
 	unsigned int mapWidth;
 	unsigned int mapHeight;
+	int path; //NO, SO, WE, EA
+	int color; //F, C
 }				t_map;
 
 /* main struct */
@@ -95,7 +97,6 @@ typedef struct	s_info
 	t_img	*img;
 	t_map	*map;
 
-
 }				t_info;
 
 /* Cub3D.c */
@@ -104,8 +105,14 @@ typedef struct	s_info
 /* init_map.c */
 void init_map(t_info *info);
 void get_map_size(t_info *info);
-char	**read_world_map(char *argv);
- char	*read_line_map(char *argv);
+char **read_world_map(char *argv);
+int read_map_path(char *line, char fir, char sec, t_info *info);
+int read_map_color(char *line, char fc, t_info *info);
+int read_map_setting(char *line, int i, t_info *info);
+int read_map(char *line, char **map, int i, int readed);
+int utils_read(char **map, char *line, t_info *info);
+char *read_line_map(char *argv, t_info info);
+
 
 /* utils */
 int	ft_strlen(char *str);

@@ -17,16 +17,17 @@ int main(int argc, char * argv[])
 	if (argc != 2)
 	{
 		printf("%s", "usage:./cub3D 'map'");
-		return 0;
+		return (0);
 	}
 	// 0. init
 	init_map(&info);
-	 info.map->line_map = read_line_map(argv[1]);
+	info.map->line_map = read_line_map(argv[1], info);
 	get_map_size(&info);
 	// 1. map
-	info.map->world_map = read_world_map(argv[1]);
-	printf("%d\n", info.map->mapHeight);
-	printf("%d\n", info.map->mapWidth);
+	// info.map->world_map = read_world_map(argv[1]);
+	//testcode
+	// printf("%d\n", info.map->mapHeight);
+	// printf("%d\n", info.map->mapWidth);
 	
 	// 2. textureLoad
 	
@@ -35,4 +36,5 @@ int main(int argc, char * argv[])
 	// 4. hook
 	
 	// 5. engine renew
+	return (0);
 }
