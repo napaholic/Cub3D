@@ -80,10 +80,11 @@ typedef struct	s_map
 
 typedef struct	s_key
 {
-	int left;
-	int right;
-	int down;
-	int up;
+	int key_a;
+	int key_w;
+	int key_s;
+	int key_d;
+	int key_esc;
 }				t_key;
 
 /* main struct */
