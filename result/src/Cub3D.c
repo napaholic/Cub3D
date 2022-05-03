@@ -21,10 +21,10 @@ int main(int argc, char * argv[])
 	}
 	// 0. init
 	init_map(&info);
-	info.map->line_map = read_line_map(argv[1], info);
-	get_map_size(&info);
 	// 1. map
 	// info.map->world_map = read_world_map(argv[1]);
+	info.map->line_map = read_line_map(argv[1], info);
+	get_map_size(&info);
 	//testcode
 	// printf("%d\n", info.map->mapHeight);
 	// printf("%d\n", info.map->mapWidth);
