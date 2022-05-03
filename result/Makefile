@@ -1,7 +1,7 @@
 NAME = Cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit
+MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 SRCS = ./src/Cub3D.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c \
 		./src/init_map.c
