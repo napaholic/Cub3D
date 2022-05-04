@@ -70,10 +70,7 @@ int main(int argc, char * argv[])
 		return (0);
 	}
 	// 0. init
-	
-	init_map(info);
-	init_mlx(info);
-	init_key(info);
+	init_info(info);
 	// 1. map
 	// info.map->world_map = read_world_map(argv[1]);
 	info->map->line_map = read_line_map(argv[1], *info);
@@ -81,14 +78,15 @@ int main(int argc, char * argv[])
 	//testcode
 	// printf("%d\n", info->map->mapHeight);
 	// printf("%d\n", info->map->mapWidth);
-	
-	// 2. textureLoad
-	
-	// 3. vector
-	
-	// 4. hook
+	// 2. vector & mlx init, mlx_new_window
 	info->mlx->mlxptr = mlx_init();
 	info->mlx->winptr = mlx_new_window(info->mlx->mlxptr, 500, 500, "Cub3D");
+	// 3. textureLoad
+	load_texture(info);
+
+	
+	// 4. hook
+
 	// mlx_loop_hook(info->mlx->mlxptr);
 	mlx_hook(info->mlx->winptr, X_KEY_PRESS, 0, &key_press, info);
 	mlx_hook(info->mlx->winptr, X_KEY_RELEASE, 0, &key_release, info);

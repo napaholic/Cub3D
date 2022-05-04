@@ -81,11 +81,11 @@ typedef struct	s_map
 typedef struct	s_key
 {
 	//테스트
-	int key_a;
-	int key_w;
-	int key_s;
-	int key_d;
-	int key_esc;
+	int left;
+	int up;
+	int down;
+	int right;
+	int esc;
 }				t_key;
 
 /* main struct */
@@ -130,6 +130,14 @@ int read_map_setting(char *line, int i, t_info *info);
 int read_map(char *line, char **map, int i, int readed);
 int utils_read(char **map, char *line, t_info *info);
 char *read_line_map(char *argv, t_info info);
+
+/* parse.c */
+void set_info_pos(t_info *info);
+void init_info(t_info *info);
+void load_texture(t_info *info);
+
+/* engine.c */
+int    render(t_info *info);
 
 
 /* utils */
