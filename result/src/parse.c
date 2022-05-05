@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/05 12:52:04 by yeju              #+#    #+#             */
+/*   Updated: 2022/05/05 13:17:20 by yeju             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Cub3D.h"
 
-void set_pos(t_info *info)
+void	set_pos(t_info *info)
 {
-	int i; //hei
-	int j; //wid
+	int	wid;
+	int	hei;
 
-	i = -1; //-1로 바꾸기
-	while (++i < info->map->mapHeight)
+	wid = -1;
+	while (++wid < info->map->mapHeight)
 	{
-		j = -1;
-		while (++j < info->map->mapWidth)
+		hei = -1;
+		while (++hei < info->map->mapWidth)
 		{
-			if (info->map->world_map[i][j] == 'N')
+			if (info->map->world_map[wid][hei] == 'N')
 			{
-				info->posX = (double)j;
-				info->posY = (double)i;
+				info->posX = (double)hei;
+				info->posY = (double)wid;
 			}
 		}
 	}
@@ -25,7 +37,7 @@ void set_pos(t_info *info)
 	// printf("posY: %f\n", info->posY);
 }
 
-void set_info_pos(t_info *info)
+void	set_info_pos(t_info *info)
 {
 	info->dirX = -1.0;
 	info->dirY = 0.0;
@@ -36,21 +48,12 @@ void set_info_pos(t_info *info)
 	return ;
 }
 
-void init_info(t_info *info)
-{
-	set_info_pos(info);
-	init_map(info);
-	init_mlx(info);
-	init_key(info);
-	return ;
-}
-
-void set_data(t_info *info)
+void	set_data(t_info *info)
 {
 	(void)info;
 }
 
-void load_texture(t_info *info)
+void	load_texture(t_info *info)
 {
 	(void)info;
 	//texture 구성

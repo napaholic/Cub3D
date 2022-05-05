@@ -1,24 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cub3D.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/05 12:51:55 by yeju              #+#    #+#             */
+/*   Updated: 2022/05/05 13:17:07 by yeju             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Cub3D.h"
-
-int init_mlx(t_info *info)
-{
-	if (!(info->mlx = (t_mlx *)malloc(sizeof(t_mlx))))
-		return (0);
-	utils_bzero(info->mlx, sizeof(t_mlx));
-	return (1);
-}
-
-int init_key(t_info *info)
-{
-	if (!(info->key = (t_key *)malloc(sizeof(t_key))))
-		return (0);
-	utils_bzero(info->key, sizeof(t_key));
-	info->key->left = 0;
-	info->key->right = 0;
-	info->key->down = 0;
-	info->key->up = 0;
-	return (1);
-}
 
 int key_press(int key, t_info *info)
 {
@@ -80,13 +72,13 @@ int main(int argc, char * argv[])
 	set_pos(info);
 
 	//testcode
-	// printf("mapHei: %d\n", info->map->mapHeight);
-	// printf("mapWid: %d\n", info->map->mapWidth);
-	// printf("print line map: \n%s\n", info->map->line_map);
-	// printf("test worldmap[2][2]: %c\n", info->map->world_map[2][2]);
-	// printf("print world map: \n");
-	// for (unsigned int i = 0; i < info->map->mapHeight; i++)
-		// printf("%s\n", info->map->world_map[i]);
+	printf("mapHei: %d\n", info->map->mapHeight);
+	printf("mapWid: %d\n", info->map->mapWidth);
+	printf("print line map: \n%s\n", info->map->line_map);
+	printf("test worldmap[2][2]: %c\n", info->map->world_map[2][2]);
+	printf("print world map: \n");
+	for (int i = 0; i < info->map->mapHeight; i++)
+		printf("%s\n", info->map->world_map[i]);
 
 	// 2. vector & mlx init, mlx_new_window
 	info->mlx->mlxptr = mlx_init();
