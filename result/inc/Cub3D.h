@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:16:41 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:21:50 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct	s_map
 
 typedef struct	s_key
 {
-	//테스트
 	int left;
 	int up;
 	int down;

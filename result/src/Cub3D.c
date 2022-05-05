@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:51:55 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:17:07 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:22:00 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int key_press(int key, t_info *info)
 {
 	if (key == KEY_ESC)
-		exit(1); //free
+		info->key->esc = 1;
 	if (key == KEY_A || key == KEY_LEFT)
 		info->key->left = 1;
 	if (key == KEY_D || key == KEY_RIGHT)
