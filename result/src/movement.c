@@ -24,12 +24,12 @@ void	rotate_left(t_info *info)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = info->dirX;
-	info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-	info->dirY = old_dir_x * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-	old_plane_x = info->planeX;
-	info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-	info->planeY = old_plane_x * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+	old_dir_x = info->pos->dirX;
+	info->pos->dirX = info->pos->dirX * cos(info->pos->rotSpeed) - info->pos->dirY * sin(info->pos->rotSpeed);
+	info->pos->dirY = old_dir_x * sin(info->pos->rotSpeed) + info->pos->dirY * cos(info->pos->rotSpeed);
+	old_plane_x = info->pos->planeX;
+	info->pos->planeX = info->pos->planeX * cos(info->pos->rotSpeed) - info->pos->planeY * sin(info->pos->rotSpeed);
+	info->pos->planeY = old_plane_x * sin(info->pos->rotSpeed) + info->pos->planeY * cos(info->pos->rotSpeed);
 }
 
 void	rotate_right(t_info *info)
@@ -37,29 +37,29 @@ void	rotate_right(t_info *info)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = info->dirX;
-	info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-	info->dirY = old_dir_x * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
-	old_plane_x = info->planeX;
-	info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-	info->planeY = old_plane_x * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
+	old_dir_x = info->pos->dirX;
+	info->pos->dirX = info->pos->dirX * cos(-info->pos->rotSpeed) - info->pos->dirY * sin(-info->pos->rotSpeed);
+	info->pos->dirY = old_dir_x * sin(-info->pos->rotSpeed) + info->pos->dirY * cos(-info->pos->rotSpeed);
+	old_plane_x = info->pos->planeX;
+	info->pos->planeX = info->pos->planeX * cos(-info->pos->rotSpeed) - info->pos->planeY * sin(-info->pos->rotSpeed);
+	info->pos->planeY = old_plane_x * sin(-info->pos->rotSpeed) + info->pos->planeY * cos(-info->pos->rotSpeed);
 }
 
 void	key_update(t_info *info)
 {
 	if (info->key->up)
 	{
-		if (!empty_chk_map(info->map, (int)(info->posX + info->dirX * info->moveSpeed), (int)(info->posY)))
-		info->posX += info->dirX * info->moveSpeed;
-		if (!empty_chk_map(info->map, (int)(info->posX), (int)(info->posY + info->dirY * info->moveSpeed)))
-			info->posY += info->dirY * info->moveSpeed;
+		if (!empty_chk_map(info->map, (int)(info->pos->posX + info->pos->dirX * info->pos->moveSpeed), (int)(info->pos->posY)))
+		info->pos->posX += info->pos->dirX * info->pos->moveSpeed;
+		if (!empty_chk_map(info->map, (int)(info->pos->posX), (int)(info->pos->posY + info->pos->dirY * info->pos->moveSpeed)))
+			info->pos->posY += info->pos->dirY * info->pos->moveSpeed;
 	}
 	if (info->key->down)
 	{
-		if (!empty_chk_map(info->map, (int)(info->posX - info->dirX * info->moveSpeed), (int)(info->posY)))
-			info->posX -= info->dirX * info->moveSpeed;
-		if (!empty_chk_map(info->map, (int)(info->posX), (int)(info->posY - info->dirY * info->moveSpeed)))
-			info->posY -= info->dirY * info->moveSpeed;
+		if (!empty_chk_map(info->map, (int)(info->pos->posX - info->pos->dirX * info->pos->moveSpeed), (int)(info->pos->posY)))
+			info->pos->posX -= info->pos->dirX * info->pos->moveSpeed;
+		if (!empty_chk_map(info->map, (int)(info->pos->posX), (int)(info->pos->posY - info->pos->dirY * info->pos->moveSpeed)))
+			info->pos->posY -= info->pos->dirY * info->pos->moveSpeed;
 	}
 	if (info->key->left)
 		rotate_left(info);

@@ -25,12 +25,12 @@ void	set_pos(t_info *info)
 		{
 			if (info->map->world_map[wid][hei] == 'N')
 			{
-				info->posX = (double)hei;
-				info->posY = (double)wid;
+				info->pos->posX = (double)hei;
+				info->pos->posY = (double)wid;
 			}
 		}
 	}
-	if (info->posX == -1.0 && info->posY == -1.0)
+	if (info->pos->posX == -1.0 && info->pos->posY == -1.0)
 		printf("pos세팅안됨\n");
 	//test code
 	// printf("posX: %f\n", info->posX);
@@ -39,12 +39,12 @@ void	set_pos(t_info *info)
 
 void	set_info_pos(t_info *info)
 {
-	info->dirX = -1.0;
-	info->dirY = 0.0;
-	info->planeX = 0.0;
-	info->planeY = 0.66;
-	info->moveSpeed = 0.05;
-	info->rotSpeed = 0.05;
+	info->pos->dirX = -1.0;
+	info->pos->dirY = 0.0;
+	info->pos->planeX = 0.0;
+	info->pos->planeY = 0.66;
+	info->pos->moveSpeed = 0.05;
+	info->pos->rotSpeed = 0.05;
 	return ;
 }
 

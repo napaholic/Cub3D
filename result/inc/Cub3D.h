@@ -41,13 +41,18 @@
 # define KEY_DOWN	125
 # define KEY_UP		126
 
+/* texture */
+# define texture_ceil   6
+# define floor_tex1 3
+# define floor_tex2 4
+
 /* display */
 #define width 640
 #define height 480
+#define texWidth 64
+#define texHeight 64
 
 /*일단 추가한 고정길이... -> 직접 재는걸로 변경 필요~*/
-// #define texWidth 64
-// #define texHeight 64
 // #define mapWidth 24
 // #define mapHeight 24
 
@@ -87,8 +92,7 @@ typedef struct	s_key
 	int esc;
 }				t_key;
 
-/* main struct */
-typedef struct	s_info
+typedef struct s_pos
 {
 	double posX;
 	double posY;
@@ -98,15 +102,39 @@ typedef struct	s_info
 	double planeY;
 	double moveSpeed;
 	double rotSpeed;
+}               t_pos;
+
+typedef struct s_floordata
+{
+	float	ray_dirX0;
+	float	ray_dirX1;
+	float   ray_dirY0;
+	float   ray_dirY1;
+	float	row_distance;
+	float	floor_stepX;
+	float   floor_stepY;
+	float	floorX;
+	float   floorY;
+	float	cellX;
+	float   cellY;
+	float	dX;
+	float   dY;
+	int		floorTexture;
+	int		ceiling_texture;
+}	t_floordata;
+
+
+/* main struct */
+typedef struct	s_info
+{
 	int buf[height][width];
 	int **texture;
 	// bool	key_check[4] = {0, 0, 0, 0};
-	
+	t_pos   *pos;
 	t_key	*key;
 	t_mlx	*mlx;
 	t_img	*img;
 	t_map	*map;
-
 }				t_info;
 
 /* Cub3D.c */
@@ -148,6 +176,21 @@ void    engine_set(t_info *info);
 
 /* engine_run.c */
 void    engine_run(t_info *info);
+
+/* movement.c */
+int	empty_chk_map(t_map *map, int x, int y);
+void	rotate_left(t_info *info);
+void	rotate_right(t_info *info);
+void	key_update(t_info *info);
+
+/* calculate.c */
+void    floor_cast(t_info *info);
+void    set_texture_vec(t_floordata *floor);
+void    set_floor_vec(t_floordata *floor, t_info *info);
+void    set_raydir(t_floordata *floor, t_info *info, int y);
+
+/* draw_floor */
+void    render_floor(t_floordata *floor, t_info *info, int x, int y);
 
 
 /* utils */
