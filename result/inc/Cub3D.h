@@ -110,20 +110,12 @@ typedef struct	s_info
 }				t_info;
 
 /* Cub3D.c */
-<<<<<<< HEAD
 // int **save_int(char **map);
 int     init_mlx(t_info *info);
 int     init_key(t_info *info);
 int     key_press(int key, t_info *info);
 int     key_release(int key, t_info *info);
 int     close_win(int keycode, int x, int y, void *param);
-=======
-int init_mlx(t_info *info);
-int init_key(t_info *info);
-int key_press(int key, t_info *info);
-int key_release(int key, t_info *info);
-int close_win(int keycode, int x, int y, void *param);
->>>>>>> fd41470582bc8df287d40e9e7eb2601259d434b9
 
 /* utils.c */
 int	utils_white_space(char c);
@@ -131,7 +123,6 @@ void	utils_bzero(void *s, size_t n);
 int	utils_read_another(char *line, int i);
 int	utils_read(char **map, char *line, t_info *info);
 
-<<<<<<< HEAD
 /* init_map.c */
 void    utils_bzero(void *s, size_t n);
 int     init_map(t_info *info);
@@ -148,6 +139,7 @@ char    *read_line_map(char *argv, t_info info);
 void    set_info_pos(t_info *info);
 void    init_info(t_info *info);
 void    load_texture(t_info *info);
+void set_pos(t_info *info);
 
 /* engine.c */
 int     render(t_info *info);
@@ -156,26 +148,6 @@ void    engine_set(t_info *info);
 
 /* engine_run.c */
 void    engine_run(t_info *info);
-=======
-/* map_parse.c */
-int init_map(t_info *info);
-void get_map_size(t_info *info);
-char **read_world_map(char *argv);
-char *read_line_map(char *argv, t_info info);
-int read_map_path(char *line, char fir, char sec, t_info *info);
-int read_map_color(char *line, char fc, t_info *info);
-int read_map_setting(char *line, int i, t_info *info);
-int read_map(char *line, char **map, int i, int readed);
-
-/* parse.c */
-void set_info_pos(t_info *info);
-void init_info(t_info *info);
-void load_texture(t_info *info);
-void set_pos(t_info *info);
-
-/* engine.c */
-int	render(t_info *info);
->>>>>>> fd41470582bc8df287d40e9e7eb2601259d434b9
 
 
 /* utils */
