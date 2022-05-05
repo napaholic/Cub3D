@@ -6,13 +6,13 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:51:58 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 12:51:58 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:23:20 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-int    render(t_info *info)
+int	render(t_info *info)
 {
 	key_update(info);
 	return (0);

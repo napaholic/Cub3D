@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:19:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:19:59 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:32:22 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ int	read_map_path(char *line, char fir, char sec, t_info *info)
 {
 	(void)line;
 	(void)info;
-	if(fir == 'N')
+	if (fir == 'N')
 		if (sec == 'O')
 			return (2);
 			//set tileset NO (info, line)
-	if(fir == 'W')
+	if (fir == 'W')
 		if (sec == 'E')
 			return (2);
 			//set tileset NO (info, line)
-	if(fir == 'E')
+	if (fir == 'E')
 		if (sec == 'A')
 			return (2);
 			//set tileset NO (info, line)
-	if(fir == 'S')
+	if (fir == 'S')
 		if (sec == 'O')
 			return (2);
 			//set tileset NO (info, line)
@@ -40,10 +40,10 @@ int	read_map_color(char *line, char fc, t_info *info)
 {
 	(void)line;
 	(void)info;
-	if(fc == 'F')
+	if (fc == 'F')
 		return (1);
 		//set floor color
-	if(fc == 'C')
+	if (fc == 'C')
 		return (1);
 		//set floor color
 	//error return (3)
@@ -52,9 +52,9 @@ int	read_map_color(char *line, char fc, t_info *info)
 
 int	read_map_setting(char *line, int i, t_info *info)
 {
-	int first;
-	int second;
-	int rst;
+	int	first;
+	int	second;
+	int	rst;
 
 	if (line[i] && line[i + 1])
 	{

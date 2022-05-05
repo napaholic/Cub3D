@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:12:58 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:19:31 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:33:05 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ int	utils_read_another(char *line, int i)
 int	utils_read(char **map, char *line, t_info *info)
 {
 	int i;
-	int readed = 0;
+	int readed;
 
 	(void)info;
 	i = 0;
+	readed = 0
 	while (utils_white_space(line[i]) == 1)
 		i++;
 	/*

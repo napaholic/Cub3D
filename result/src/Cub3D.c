@@ -6,13 +6,13 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:51:55 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:22:00 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:28:15 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-int key_press(int key, t_info *info)
+int	key_press(int key, t_info *info)
 {
 	if (key == KEY_ESC)
 		info->key->esc = 1;
@@ -27,7 +27,7 @@ int key_press(int key, t_info *info)
 	return (0);
 }
 
-int key_release(int key, t_info *info)
+int	key_release(int key, t_info *info)
 {
 	if (key == KEY_A || key == KEY_LEFT)
 		info->key->left = 0;
@@ -40,7 +40,7 @@ int key_release(int key, t_info *info)
 	return (0);
 }
 
-int close_win(int keycode, int x, int y, void *param)
+int	close_win(int keycode, int x, int y, void *param)
 {
 	(void)keycode;
 	(void)x;
@@ -49,11 +49,12 @@ int close_win(int keycode, int x, int y, void *param)
 	exit(1); //free
 }
 
-int main(int argc, char * argv[])
+int	main(int argc, char **argv)
 {
-	t_info *info;
+	t_info	*info;
 
-	if (!(info = (t_info *)malloc(sizeof(t_info))))
+	info = (t_info *)malloc(sizeof(t_info));
+	if (!info)
 		return (0);
 	utils_bzero(info, sizeof(t_info));
 	if (argc != 2)
@@ -67,11 +68,10 @@ int main(int argc, char * argv[])
 	info->map->line_map = read_line_map(argv[1], *info);
 	get_map_size(info);
 	info->map->world_map = read_world_map(argv[1]);
-
 	//map읽은뒤 init_info해도 될듯!.! 일단은 pos값은 따로 뺄게용
 	set_pos(info);
-
-	//testcode
+	// testcode
+	/*
 	printf("mapHei: %d\n", info->map->mapHeight);
 	printf("mapWid: %d\n", info->map->mapWidth);
 	printf("print line map: \n%s\n", info->map->line_map);
@@ -79,16 +79,13 @@ int main(int argc, char * argv[])
 	printf("print world map: \n");
 	for (int i = 0; i < info->map->mapHeight; i++)
 		printf("%s\n", info->map->world_map[i]);
-
+	*/
 	// 2. vector & mlx init, mlx_new_window
 	info->mlx->mlxptr = mlx_init();
 	info->mlx->winptr = mlx_new_window(info->mlx->mlxptr, 500, 500, "Cub3D");
 	// 3. textureLoad
 	load_texture(info);
-
-	
 	// 4. hook
-
 	// mlx_loop_hook(info->mlx->mlxptr);
 	mlx_hook(info->mlx->winptr, X_KEY_PRESS, 0, &key_press, info);
 	mlx_hook(info->mlx->winptr, X_KEY_RELEASE, 0, &key_release, info);

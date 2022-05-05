@@ -5,7 +5,7 @@ MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 SRCS = ./src/Cub3D.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c \
 		./src/map_parse.c ./src/parse.c ./src/movement.c ./src/utils.c \
-		./src/init.c ./src/map_setting.c
+		./src/init.c ./src/map_setting.c ./src/engine.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

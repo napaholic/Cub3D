@@ -6,23 +6,25 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:19:16 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:24:41 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-int init_mlx(t_info *info)
+int	init_mlx(t_info *info)
 {
-	if (!(info->mlx = (t_mlx *)malloc(sizeof(t_mlx))))
+	info->mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	if (!info->mlx)
 		return (0);
 	utils_bzero(info->mlx, sizeof(t_mlx));
 	return (1);
 }
 
-int init_key(t_info *info)
+int	init_key(t_info *info)
 {
-	if (!(info->key = (t_key *)malloc(sizeof(t_key))))
+	info->key = (t_key *)malloc(sizeof(t_key));
+	if (!info->key)
 		return (0);
 	utils_bzero(info->key, sizeof(t_key));
 	info->key->left = 0;

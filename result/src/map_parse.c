@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:52:00 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:17:53 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 13:31:34 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int	read_map(char *line, char **map, int i, int readed)
 
 char	*read_line_map(char *argv, t_info info)
 {
-	int fd;
-	int ret;
-	char *map;
-	char *line;
+	int		fd;
+	int		ret;
+	char	*map;
+	char	*line;
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
@@ -86,7 +86,7 @@ char	*read_line_map(char *argv, t_info info)
 		line = NULL;
 		free(line);
 		if (ret == 0)
-			break;
+			break ;
 	}
 	//test code
 	// printf("최종맵: \n%s", map);
