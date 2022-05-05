@@ -22,10 +22,11 @@ void init_info(t_info *info)
 
 void set_data(t_info *info)
 {
-
+	(void)info;
 }
 
 void load_texture(t_info *info)
 {
+	(void)info;
 	//texture 구성
 }

@@ -11,7 +11,6 @@ void utils_bzero(void *s, size_t n)
 		*dest++ = 0;
 }
 
-//이 함수를 malloc, bzero로 바꾸기
 int init_map(t_info *info)
 {
 	if (!(info->map = (t_map *)malloc(sizeof(t_map))))
@@ -62,35 +61,6 @@ void get_map_size(t_info *info)
 		info->map->mapWidth = wid2;
 	}
 	return ;
-}
-
-char **read_world_map(char *argv)
-{
-	int fd;
-	char *tmp;
-	int i;
-	char **map;
-
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR: file open\n");
-	i = 0;
-	while ((get_next_line(fd, &tmp)))
-	{
-		free(tmp);
-		i++;
-	}
-	free(tmp);
-	map = (char **)malloc(sizeof(char *) * (i + 2));
-	close(fd);
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR: file open\n");
-	i = 0;
-	while ((get_next_line(fd, &map[i])))
-		i++;
-	map[++i] = 0;
-	return (map);
 }
 
 //그럼 map안에있는 NO는 어떻게하지...?!
@@ -248,5 +218,34 @@ char *read_line_map(char *argv, t_info info)
 	}
 	//test code
 	// printf("최종맵: \n%s", map);
+	return (map);
+}
+
+char **read_world_map(char *argv)
+{
+	int		fd;
+	char	*tmp;
+	int		i;
+	char	**map;
+
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		printf("%s", "ERROR\n");
+	i = 0;
+	while ((get_next_line(fd, &tmp)))
+	{
+		free(tmp);
+		i++;
+	}
+	free(tmp);
+	map = (char **)malloc(sizeof(char *) * (i + 2));
+	close(fd);
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		printf("%s", "ERROR\n");
+	i = 0;
+	while ((get_next_line(fd, &map[i])))
+		i++;
+	map[++i] = 0;
 	return (map);
 }

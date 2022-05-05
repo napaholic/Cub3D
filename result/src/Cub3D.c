@@ -72,12 +72,18 @@ int main(int argc, char * argv[])
 	// 0. init
 	init_info(info);
 	// 1. map
-	// info.map->world_map = read_world_map(argv[1]);
 	info->map->line_map = read_line_map(argv[1], *info);
 	get_map_size(info);
+	info->map->world_map = read_world_map(argv[1]);
 	//testcode
-	// printf("%d\n", info->map->mapHeight);
-	// printf("%d\n", info->map->mapWidth);
+	// printf("mapHei: %d\n", info->map->mapHeight);
+	// printf("mapWid: %d\n", info->map->mapWidth);
+	// printf("print line map: \n%s\n", info->map->line_map);
+	// printf("test worldmap[5][5]: %c\n", info->map->world_map[5][5]);
+	// printf("print world map: \n");
+	// for (unsigned int i = 0; i < info->map->mapHeight; i++)
+	// 	printf("%s\n", info->map->world_map[i]);
+
 	// 2. vector & mlx init, mlx_new_window
 	info->mlx->mlxptr = mlx_init();
 	info->mlx->winptr = mlx_new_window(info->mlx->mlxptr, 500, 500, "Cub3D");
