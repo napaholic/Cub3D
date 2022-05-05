@@ -75,6 +75,10 @@ int main(int argc, char * argv[])
 	info->map->line_map = read_line_map(argv[1], *info);
 	get_map_size(info);
 	info->map->world_map = read_world_map(argv[1]);
+
+	//map읽은뒤 init_info해도 될듯!.! 일단은 pos값은 따로 뺄게용
+	set_pos(info);
+
 	//testcode
 	// printf("mapHei: %d\n", info->map->mapHeight);
 	// printf("mapWid: %d\n", info->map->mapWidth);

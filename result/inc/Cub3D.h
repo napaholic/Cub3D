@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 11:31:14 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 11:42:22 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ typedef struct	s_info
 }				t_info;
 
 /* Cub3D.c */
-// int **save_int(char **map);
 int init_mlx(t_info *info);
 int init_key(t_info *info);
 int key_press(int key, t_info *info);
@@ -135,6 +134,7 @@ char *read_line_map(char *argv, t_info info);
 void set_info_pos(t_info *info);
 void init_info(t_info *info);
 void load_texture(t_info *info);
+void set_pos(t_info *info);
 
 /* engine.c */
 int    render(t_info *info);
