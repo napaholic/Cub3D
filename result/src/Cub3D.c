@@ -85,13 +85,13 @@ int main(int argc, char * argv[])
 	load_texture(info);
 
 	
-	// 4. hook
+	// 4. hook & engine_set
+	engine_set(info);
 
 	// mlx_loop_hook(info->mlx->mlxptr);
-	mlx_hook(info->mlx->winptr, X_KEY_PRESS, 0, &key_press, info);
-	mlx_hook(info->mlx->winptr, X_KEY_RELEASE, 0, &key_release, info);
-	mlx_hook(info->mlx->winptr, X_CLICK_EXIT, 0, &close_win, 0);
-	mlx_loop(info->mlx->mlxptr);
+
 	// 5. engine renew
+	engine_run(info);
+	mlx_loop(info->mlx->mlxptr);
 	return (0);
 }
