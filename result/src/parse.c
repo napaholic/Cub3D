@@ -2,31 +2,27 @@
 
 void set_pos(t_info *info)
 {
-	unsigned int i; //hei
-	unsigned int j; //wid
+	int i; //hei
+	int j; //wid
 
-	i = 0; //-1로 바꾸기
-	j = 0;
-
-	while (i < info->map->mapHeight)
+	i = -1; //-1로 바꾸기
+	while (++i < info->map->mapHeight)
 	{
-		while (j < info->map->mapWidth)
+		j = -1;
+		while (++j < info->map->mapWidth)
 		{
-			printf("%c", info->map->world_map[(int)i][(int)j]);
-			if (info->map->world_map[(int)i][(int)j] == 'N')
+			if (info->map->world_map[i][j] == 'N')
 			{
 				info->posX = (double)j;
 				info->posY = (double)i;
 			}
-			j = j + 1.0;
 		}
-		i = i + 1.0;
 	}
 	if (info->posX == -1.0 && info->posY == -1.0)
 		printf("pos세팅안됨\n");
 	//test code
-	printf("posX: %f\n", info->posX);
-	printf("posY: %f\n", info->posY);
+	// printf("posX: %f\n", info->posX);
+	// printf("posY: %f\n", info->posY);
 }
 
 void set_info_pos(t_info *info)

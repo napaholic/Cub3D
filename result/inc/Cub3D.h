@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 11:42:22 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/05 12:15:20 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct	s_map
 {
 	char *line_map;
 	char **world_map;
-	unsigned int mapWidth;
-	unsigned int mapHeight;
+	int mapWidth;
+	int mapHeight;
 	int path; //NO, SO, WE, EA
 	int color; //F, C
 }				t_map;

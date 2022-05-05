@@ -83,10 +83,10 @@ int main(int argc, char * argv[])
 	// printf("mapHei: %d\n", info->map->mapHeight);
 	// printf("mapWid: %d\n", info->map->mapWidth);
 	// printf("print line map: \n%s\n", info->map->line_map);
-	// printf("test worldmap[5][5]: %c\n", info->map->world_map[5][5]);
+	// printf("test worldmap[2][2]: %c\n", info->map->world_map[2][2]);
 	// printf("print world map: \n");
 	// for (unsigned int i = 0; i < info->map->mapHeight; i++)
-	// 	printf("%s\n", info->map->world_map[i]);
+		// printf("%s\n", info->map->world_map[i]);
 
 	// 2. vector & mlx init, mlx_new_window
 	info->mlx->mlxptr = mlx_init();
