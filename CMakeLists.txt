@@ -38,4 +38,7 @@ add_executable(Cub3D
         result/src/calculate_floor.c
         result/src/draw_floor.c
         result/src/calculate_ceil.c
+        result/src/map_parse.c
+        result/src/map_setting.c
+        result/src/utils.c
         result/src/parse.c)
