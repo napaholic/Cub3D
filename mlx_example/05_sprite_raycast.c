@@ -255,7 +255,7 @@ void	calc(t_info *info)
 	for(int x = 0; x < width; x++)
 	{
 		//calculate ray position and direction
-		double cameraX = 2 * x / (double)width - 1; //x-coordinate in camera space
+		double dcameraX = 2 * x / (double)  - 1; //x-coordinate in camera space
 		double rayDirX = info->dirX + info->planeX * cameraX;
 		double rayDirY = info->dirY + info->planeY * cameraX;
 		//which box of the map we're in

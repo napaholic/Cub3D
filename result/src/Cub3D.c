@@ -85,8 +85,6 @@ int	main(int argc, char **argv)
 	info->mlx->winptr = mlx_new_window(info->mlx->mlxptr, 500, 500, "Cub3D");
 	// 3. textureLoad
 	load_texture(info);
-
-	
 	// 4. hook & engine_set
 	engine_set(info);
 	// mlx_loop_hook(info->mlx->mlxptr);
