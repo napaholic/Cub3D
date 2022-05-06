@@ -35,6 +35,7 @@ add_executable(Cub3D
         result/src/engine.c
         result/src/movement.c
         result/src/engine_run.c
-        result/src/calculate.c
+        result/src/calculate_floor.c
         result/src/draw_floor.c
+        result/src/calculate_ceil.c
         result/src/parse.c)

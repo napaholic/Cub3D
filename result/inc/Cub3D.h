@@ -104,6 +104,31 @@ typedef struct s_pos
 	double rotSpeed;
 }               t_pos;
 
+typedef struct s_wallData
+{
+	double		camera_x;
+	double		rayDirX;
+	double		rayDirY;
+	int		    map_posX;
+	int         map_posY;
+	double      sideDistX;
+	double      sideDistY;
+	int     	stepX;
+	int     	stepY;
+	double		d_DistX;
+	double		d_DistY;
+	int         side;
+	double		perp_wall_dist;
+	int			lineheight;
+	int			draw_start;
+	int			draw_end;
+	double		wallx;
+	int			texX;
+	double		step_val;
+	double		tex_pos;
+	int         hit;
+}               t_wallData;
+
 typedef struct s_floordata
 {
 	float	ray_dirX0;
@@ -121,7 +146,7 @@ typedef struct s_floordata
 	float   dY;
 	int		floorTexture;
 	int		ceiling_texture;
-}	t_floordata;
+}	            t_floordata;
 
 
 /* main struct */
@@ -191,6 +216,10 @@ void    set_raydir(t_floordata *floor, t_info *info, int y);
 
 /* draw_floor */
 void    render_floor(t_floordata *floor, t_info *info, int x, int y);
+
+
+/* calculate_ceil */
+void    wall_cast(t_info *info);
 
 
 /* utils */

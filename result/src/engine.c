@@ -27,7 +27,7 @@ void    hook_set(t_info *info)
 
 
 
-voie    engine_set(t_info *info)
+void    engine_set(t_info *info)
 {
 	hook_set(info);
 }
