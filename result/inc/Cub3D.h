@@ -43,8 +43,16 @@
 
 /* texture */
 # define texture_ceil   6
-# define floor_tex1 3
-# define floor_tex2 4
+# define floor_tex1 4
+# define floor_tex2 5
+# define TEX_WALL_N 0
+# define TEX_WALL_S 1
+# define TEX_WALL_E 2
+# define TEX_WALL_W 3
+
+/* step_vector */
+# define POSITIVE 1
+# define NEGATIVE -1
 
 /* display */
 #define width 640
@@ -225,5 +233,10 @@ void    wall_cast(t_info *info);
 /* utils */
 int	    ft_strlen(char *str);
 void	error_exit(char *str);
+
+/* wall_cast.c */
+void    set_wall_data(t_wallData *wData, t_info *info);
+void    set_texture_data(t_wallData *wData, t_info *info);
+int     set_color(t_wallData *wData, t_info *info);
 
 # endif

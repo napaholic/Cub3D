@@ -47,9 +47,7 @@ void    floor_cast(t_info *info) {
 
 	y = height / 2 - 1;
 	while (++y < height) {
-		//1. floor raycast set raydir
-		//1. floor raycast set raydir
-		//1. floor raycast set raydir
+
 		set_raydir(&f_data, info, y);
 		set_floor_vec(&f_data, info);
 		x = -1;
