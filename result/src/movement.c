@@ -67,6 +67,6 @@ void	key_update(t_info *info)
 		rotate_right(info);
 	if (info->key->esc)
 	{
-		//exit process, need free all allocate var
+		exit(1);
 	}
 }

@@ -12,12 +12,6 @@
 
 #include "../inc/Cub3D.h"
 
-int	render(t_info *info)
-{
-	key_update(info);
-	return (0);
-}
-
 void    hook_set(t_info *info)
 {
 	mlx_hook(info->mlx->winptr, X_KEY_PRESS, 0, &key_press, info);

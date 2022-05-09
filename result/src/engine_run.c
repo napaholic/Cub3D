@@ -9,7 +9,7 @@ void    cal_vec(t_info *info)
 int render(t_info *info)
 {
 	cal_vec(info);
-	draw(info);
+//	draw(info);
 	key_update(info);
 }
 

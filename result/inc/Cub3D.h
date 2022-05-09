@@ -150,8 +150,8 @@ typedef struct s_floordata
 	float   floorY;
 	float	cellX;
 	float   cellY;
-	float	dX;
-	float   dY;
+	int 	dX;
+	int     dY;
 	int		floorTexture;
 	int		ceiling_texture;
 }	            t_floordata;
@@ -200,18 +200,19 @@ char    *read_line_map(char *argv, t_info info);
 void    set_info_pos(t_info *info);
 void    init_info(t_info *info);
 void    load_texture(t_info *info);
-void set_pos(t_info *info);
+void     set_pos(t_info *info);
 
 /* engine.c */
-int     render(t_info *info);
 void    hook_set(t_info *info);
 void    engine_set(t_info *info);
 
 /* engine_run.c */
 void    engine_run(t_info *info);
+int     render(t_info *info);
+void    cal_vec(t_info *info);
 
 /* movement.c */
-int	empty_chk_map(t_map *map, int x, int y);
+int	    empty_chk_map(t_map *map, int x, int y);
 void	rotate_left(t_info *info);
 void	rotate_right(t_info *info);
 void	key_update(t_info *info);
@@ -233,6 +234,12 @@ void    wall_cast(t_info *info);
 /* utils */
 int	    ft_strlen(char *str);
 void	error_exit(char *str);
+
+/* init.c */
+void	init_info(t_info *info);
+int 	init_map(t_info *info);
+int	    init_key(t_info *info);
+int     init_mlx(t_info *info);
 
 /* wall_cast.c */
 void    set_wall_data(t_wallData *wData, t_info *info);
