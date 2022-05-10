@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 14:43:28 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 14:54:15 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,19 @@ typedef struct	s_pos
 }				t_pos;
 
 /* wall_data struct */
-typedef struct	s_wallData
+typedef struct	s_wall_data
 {
 	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
+	double	raydir_x;
+	double	raydir_y;
 	int		map_pos_x;
 	int		map_pos_y;
 	double	side_dist_x;
 	double	side_dist_y;
 	int		step_x;
 	int		step_y;
-	double	d_DistX;
-	double	d_DistY;
+	double	d_dist_x;
+	double	d_dist_y;
 	int		side;
 	double	perp_wall_dist;
 	int		lineheight;
@@ -139,7 +139,7 @@ typedef struct	s_wallData
 	// double		step_val;
 	// double		tex_pos;
 	int		hit;
-}				t_wallData;
+}				t_wall_data;
 
 /* floor_data */
 typedef struct	s_floordata
@@ -172,7 +172,7 @@ typedef struct	s_info
 	//고정으로 바꿔도 되는 창 크기
 	int		win_wid;
 	int		win_hei;
-	// int buf[height][width];
+	// int buf[info->win_hei][info->win_wid];
 	// bool	key_check[4] = {0, 0, 0, 0};
 	t_pos	*pos;
 	t_key	*key;
@@ -200,10 +200,10 @@ void	set_raydir(t_floordata *floor, t_info *info, int y);
 void	set_texture_vec(t_floordata *floor, t_info *info);
 void	set_texture_num(t_floordata *floor);
 void	floor_cast(t_info *info);
-void	init_DDA_cast(t_wallData *wData, t_info *info);
-void	stepProgress_until_hit(t_wallData *wData, t_info *info);
-double	calc_perp_dist(t_wallData *wData, t_info *info);
-void	set_DDA(t_wallData *wData, t_info *info, int cur_x);
+void	init_DDA_cast(t_wall_data *wall_data, t_info *info);
+void	stepProgress_until_hit(t_wall_data *wall_data, t_info *info);
+double	calc_perp_dist(t_wall_data *wall_data, t_info *info);
+void	set_DDA(t_wall_data *wall_data, t_info *info, int cur_x);
 void	wall_cast(t_info *info);
 
 /* draw_floor */
@@ -286,9 +286,9 @@ int		utils_read_another(char *line, int i);
 int		utils_read(char **map, char *line, t_info *info);
 
 /* wall_cast.c */
-void	set_wall_data(t_wallData *wData, t_info *info);
-void	set_texture_data(t_wallData *wData, t_info *info);
-int		set_color(t_wallData *wData, t_info *info);
+void	set_wall_data(t_wall_data *wall_data, t_info *info);
+void	set_texture_data(t_wall_data *wall_data, t_info *info);
+int		set_color(t_wall_data *wall_data, t_info *info);
 
 /* loop_hook.c */
 int		loop(t_info *info);

@@ -1,52 +1,52 @@
 #include "../inc/Cub3D.h"
 
-void    set_wall_data(t_wallData *wData, t_info *info)
+void    set_wall_data(t_wall_data *wall_data, t_info *info)
 {
-	wData->lineheight = (int)(height / wData->perp_wall_dist * 1);
-	wData->draw_start = -wData->lineheight / 2 + height / 2;
-	if (wData->draw_start < 0)
-		wData->draw_end = 0;
-	wData->draw_end = wData->lineheight / 2 + height / 2;
-	if (wData->draw_end >= height)
-		wData->draw_end = height - 1;
-	//wData->stepX = x_sign
-	if (wData->side == 0)
-		wData->wallx = info->pos->pos_y + wData->perp_wall_dist * wData->raydir_y;
+	wall_data->lineheight = (int)(height / wall_data->perp_wall_dist * 1);
+	wall_data->draw_start = -wall_data->lineheight / 2 + height / 2;
+	if (wall_data->draw_start < 0)
+		wall_data->draw_end = 0;
+	wall_data->draw_end = wall_data->lineheight / 2 + height / 2;
+	if (wall_data->draw_end >= height)
+		wall_data->draw_end = height - 1;
+	//wall_data->stepX = x_sign
+	if (wall_data->side == 0)
+		wall_data->wallx = info->pos->pos_y + wall_data->perp_wall_dist * wall_data->raydir_y;
 	else
-		wData->wallx = info->pos->pos_x + wData->perp_wall_dist * wData->raydir_x;
-	wData->wallx -= floor((wData->wallx));
+		wall_data->wallx = info->pos->pos_x + wall_data->perp_wall_dist * wall_data->raydir_x;
+	wall_data->wallx -= floor((wall_data->wallx));
 }
 
-void    set_texture_data(t_wallData *wData, t_info *info)
+void    set_texture_data(t_wall_data *wall_data, t_info *info)
 {
-	wData->texX = (int)(wData->wallx * (double)texWidth);
-	if (wData->side == 0 && wData->raydir_x > 0)
-		wData->texX = texWidth - wData->texX - 1;
-	if (wData->side == 1 && wData->raydir_x < 0)
-		wData->texX = texWidth - wData->texX - 1;
-	wData->step_val = 1.0 * texHeight / wData->lineheight;
-	wData->tex_pos = (wData->draw_start - height / 2 + wData->lineheight / 2)
-			* wData->step_val;
+	wall_data->texX = (int)(wall_data->wallx * (double)texWidth);
+	if (wall_data->side == 0 && wall_data->raydir_x > 0)
+		wall_data->texX = texWidth - wall_data->texX - 1;
+	if (wall_data->side == 1 && wall_data->raydir_x < 0)
+		wall_data->texX = texWidth - wall_data->texX - 1;
+	wall_data->step_val = 1.0 * texHeight / wall_data->lineheight;
+	wall_data->tex_pos = (wall_data->draw_start - height / 2 + wall_data->lineheight / 2)
+			* wall_data->step_val;
 }
 
-int     set_color(t_wallData *wData, t_info *info)
+int     set_color(t_wall_data *wall_data, t_info *info)
 {
 	int texY;
 	int color;
 	int texnum;
 
-	texY = (int)wData->tex_pos & (texHeight - 1);
-	wData->tex_pos += wData->step_val;
-	if (wData->side && (wData->stepX == POSITIVE))
+	texY = (int)wall_data->tex_pos & (texHeight - 1);
+	wall_data->tex_pos += wall_data->step_val;
+	if (wall_data->side && (wall_data->stepX == POSITIVE))
 		texnum = TEX_WALL_N;
-	else if (wData->side && (wData->stepX == NEGATIVE))
+	else if (wall_data->side && (wall_data->stepX == NEGATIVE))
 		texnum = TEX_WALL_S;
-	else if (!wData->side && (wData->stepX == POSITIVE))
+	else if (!wall_data->side && (wall_data->stepX == POSITIVE))
 		texnum = TEX_WALL_E;
 	else
 		texnum = TEX_WALL_W;
-	color = info->texture[texnum][texHeight * texY + wData->texX];
-	if (wData->side == 1)
+	color = info->texture[texnum][texHeight * texY + wall_data->texX];
+	if (wall_data->side == 1)
 		color = (color >> 1) & 8355711;
 	return (color);
 }

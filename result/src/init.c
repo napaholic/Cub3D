@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 13:31:22 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 14:45:53 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	init_win_img(t_info *info)
 	if (!(map/* = map읽을함수(info->map->map_name, info)*/))
 		return (0);
 	// translate_map(map, info); //mapparse
-	if (!(info->win = mlx_new_window(info->mlx, info->wid, info->hei, "cub3D")))
+	if (!(info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D")))
 		return (0);
-	if (!(info->img/*= image_new(info, info->wid, info->hei)*/))
+	if (!(info->img/*= image_new(info, info->win_wid, info->win_hei)*/))
 		return (0);
 	return (1);
 }
@@ -102,7 +102,7 @@ t_info	*init_info_mlx(void)
 	info->mlx = mlx_init();
 	if (!info->mlx)
 		return (0);
-	info->wid = 640;
-	info->hei = 480;
+	info->win_wid = 640;
+	info->win_hei = 480;
 	return (info);
 }
