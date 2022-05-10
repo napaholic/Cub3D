@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 16:32:04 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 19:17:00 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@
 /* image struct */
 typedef struct	s_img
 {
-	void *img;
-	char *data;
-	int img_width;
-	int img_height;
-	int	bits_per_pixel;
-	int size_line;
-	int endian;
+	void	*img;
+	char	*data;
+	int		img_width;
+	int		img_height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	char	*path;
 }				t_img;
 
 /* map struct */
@@ -115,10 +116,10 @@ typedef struct	s_wall_data
 	int		lineheight;
 	int		draw_start;
 	int		draw_end;
-	double		wallx; //@
-	int			texX; //@
-	double		step_val; //@
-	double		tex_pos; //@
+	double	wallx; //@
+	int		texX; //@
+	double	step_val; //@
+	double	tex_pos; //@
 	int		hit;
 }				t_wall_data;
 
@@ -154,6 +155,12 @@ typedef struct	s_info
 	int		win_wid;
 	int		win_hei;
 	int buf[640][480];
+
+	//바닥, 천장 색깔
+	int		floor_color;
+	int		ceiling_color;
+
+	//구조체
 	t_pos	*pos;
 	t_key	*key;
 	t_img	*img;
@@ -225,10 +232,11 @@ t_info	*init_info_mlx(void);
 
 /* map_parse.c */
 char	*read_map(char *argv, t_info *info);
-int	read_map_sub(char *line, char **map, t_info *info);
-int	read_map_setting(char *line, int idx, t_info *info);
-int	read_color(char *line, int c, int idx, t_info *info);
-int	read_txt_path(char *line, int first, int second, int idx, t_info *info);
+int		read_map_sub(char *line, char **map, t_info *info);
+int		read_map_setting(char *line, int idx, t_info *info);
+int		read_color(char *line, int c, int idx, t_info *info);
+int		read_txt_path(char *line, int first, int second, int idx, t_info *info);
+int		utils_check_txt_execute(char *path);
 
 /* texture_set.c */
 int		read_map_path(char *line, char fir, char sec, t_info *info);
@@ -250,6 +258,8 @@ int		utils_white_space(char c);
 void	utils_bzero(void *s, size_t n);
 int		utils_read_another(char *line, int i);
 int		utils_read(char **map, char *line, t_info *info);
+int		utils_isprint(int c);
+int		utils_isdigit(int c);
 
 /* wall_cast.c */
 void	set_wall_data(t_wall_data *wall_data, t_info *info);
