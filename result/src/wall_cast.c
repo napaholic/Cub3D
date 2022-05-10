@@ -11,18 +11,18 @@ void    set_wall_data(t_wallData *wData, t_info *info)
 		wData->draw_end = height - 1;
 	//wData->stepX = x_sign
 	if (wData->side == 0)
-		wData->wallx = info->pos->posY + wData->perp_wall_dist * wData->rayDirY;
+		wData->wallx = info->pos->posY + wData->perp_wall_dist * wData->raydir_y;
 	else
-		wData->wallx = info->pos->posX + wData->perp_wall_dist * wData->rayDirX;
+		wData->wallx = info->pos->posX + wData->perp_wall_dist * wData->raydir_x;
 	wData->wallx -= floor((wData->wallx));
 }
 
 void    set_texture_data(t_wallData *wData, t_info *info)
 {
 	wData->texX = (int)(wData->wallx * (double)texWidth);
-	if (wData->side == 0 && wData->rayDirX > 0)
+	if (wData->side == 0 && wData->raydir_x > 0)
 		wData->texX = texWidth - wData->texX - 1;
-	if (wData->side == 1 && wData->rayDirX < 0)
+	if (wData->side == 1 && wData->raydir_x < 0)
 		wData->texX = texWidth - wData->texX - 1;
 	wData->step_val = 1.0 * texHeight / wData->lineheight;
 	wData->tex_pos = (wData->draw_start - height / 2 + wData->lineheight / 2)

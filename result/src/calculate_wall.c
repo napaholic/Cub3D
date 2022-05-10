@@ -2,7 +2,7 @@
 
 void    init_DDA_cast(t_wallData *wData, t_info *info)
 {
-	if (wData->rayDirX < 0)
+	if (wData->raydir_x < 0)
 	{
 		wData->stepX = -1;
 		wData->sideDistX = (info->pos->posX - wData->map_posX);
@@ -13,7 +13,7 @@ void    init_DDA_cast(t_wallData *wData, t_info *info)
 		wData->sideDistX = (wData->map_posX + 1.0 - info->pos->posX)
 				* wData->d_DistX;
 	}
-	if (wData->rayDirY < 0)
+	if (wData->raydir_y < 0)
 	{
 		wData->stepY = -1;
 		wData->sideDistY = (info->pos->posY - wData->map_posY);
@@ -56,22 +56,22 @@ double  calc_perp_dist(t_wallData *wData, t_info *info)
 
 	if (wData->side)
 		perp_dist = (wData->map_posY - info->pos->posY + (1 - wData->stepY) / 2)
-				/ wData->rayDirY;
+				/ wData->raydir_y;
 	else
 		perp_dist = (wData->map_posX - info->pos->posX + (1 - wData->stepX) / 2)
-				/ wData->rayDirX;
+				/ wData->raydir_x;
 	return (perp_dist);
 }
 
 void    set_DDA(t_wallData *wData, t_info *info, int cur_x)
 {
 	wData->camera_x = 2 * cur_x / (double)width - 1; //카메라공간 x좌표계
-	wData->rayDirX = info->pos->dirX + info->pos->planeX * wData->camera_x;
-	wData->rayDirY = info->pos->dirY + info->pos->planeY * wData->camera_x;
+	wData->raydir_x = info->pos->dir_x + info->pos->plane_x * wData->camera_x;
+	wData->raydir_y = info->pos->dir_y + info->pos->plane_y * wData->camera_x;
 	wData->map_posX = (int)info->pos->posX;
 	wData->map_posY = (int)info->pos->posY;
-	wData->d_DistX = fabs(1 / wData->rayDirX);
-	wData->d_DistY = fabs(1 / wData->rayDirY);
+	wData->d_DistX = fabs(1 / wData->raydir_x);
+	wData->d_DistY = fabs(1 / wData->raydir_y);
 	wData->map_posX = (int)(info->pos->posX);
 	wData->map_posY = (int)(info->pos->posY);
 	init_DDA_cast(wData, info);

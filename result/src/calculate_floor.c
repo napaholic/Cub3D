@@ -2,21 +2,21 @@
 
 void    set_raydir(t_floordata *floor, t_info *info, int y)
 {
-	floor->ray_dirX0 = info->pos->dirX - info->pos->planeX;
-	floor->ray_dirY0 = info->pos->dirY - info->pos->planeY;
-	floor->ray_dirX1 = info->pos->dirX + info->pos->planeX;
-	floor->ray_dirY1 = info->pos->dirY + info->pos->planeY;
+	floor->ray_dir_x0 = info->pos->dir_x - info->pos->plane_x;
+	floor->ray_dir_y0 = info->pos->dir_y - info->pos->plane_y;
+	floor->ray_dir_x1 = info->pos->dir_x + info->pos->plane_x;
+	floor->ray_dir_y1 = info->pos->dir_y + info->pos->plane_y;
 	floor->row_distance = (0.5 * height) / (y - height / 2);
 }
 
 void    set_floor_vec(t_floordata *floor, t_info *info)
 {
 	floor->floor_stepX = floor->row_distance
-			*(floor->ray_dirX1 - floor->ray_dirX0) / width;
+			*(floor->ray_dir_x1 - floor->ray_dir_x0) / width;
 	floor->floor_stepY = floor->row_distance
-			* (floor->ray_dirY1 - floor->ray_dirY0) / width;
-	floor->floorX = info->pos->posX + floor->row_distance * floor->ray_dirX0;
-	floor->floorY = info->pos->posY + floor->row_distance * floor->ray_dirY0;
+			* (floor->ray_dir_y1 - floor->ray_dir_y0) / width;
+	floor->floorX = info->pos->posX + floor->row_distance * floor->ray_dir_x0;
+	floor->floorY = info->pos->posY + floor->row_distance * floor->ray_dir_y0;
 }
 
 void    set_texture_vec(t_floordata *floor)

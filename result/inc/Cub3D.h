@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 12:43:32 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 13:28:16 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 /* include headers */
 #include "../mlx/mlx.h"
-#include "../gnl/get_next_line.h"
 #include <math.h>
 #include <fcntl.h> //file open
 
@@ -85,8 +84,8 @@ typedef struct	s_img
 typedef struct	s_map
 {
 	char **world_map;
-	// char *line_map;-> 구조체에 안넣고 mapsize구한후 바로 free
-	char *map_path; //->map파일 권한때문에 확인하기위해 일단 넣어둠
+	char *line_map; //-> 구조체에 안넣고 mapsize구한후 바로 free
+	char *map_name; //->map파일 권한때문에 확인하기위해 일단 넣어둠
 	int map_width;
 	int map_height;
 }				t_map;
@@ -143,13 +142,13 @@ typedef struct s_wallData
 	int         hit;
 }               t_wallData;
 
-/* floor_data 
+/* floor_data */
 typedef struct s_floordata
 {
-	float	ray_dirX0;
-	float	ray_dirX1;
-	float   ray_dirY0;
-	float   ray_dirY1;
+	float	ray_dir_x0;
+	float	ray_dir_x1;
+	float   ray_dir_y0;
+	float   ray_dir_y1;
 	float	row_distance;
 	float	floor_stepX;
 	float   floor_stepY;
@@ -162,7 +161,7 @@ typedef struct s_floordata
 	int		floorTexture;
 	int		ceiling_texture;
 }	            t_floordata;
-*/
+
 
 /* main struct */
 typedef struct	s_info
@@ -171,6 +170,9 @@ typedef struct	s_info
 	void			*mlx;
 	void			*win;
 
+	//고정으로 바꿔도 되는 창 크기
+	int wid;
+	int hei;
 	// int buf[height][width];
 	// bool	key_check[4] = {0, 0, 0, 0};
 	t_pos   *pos;
@@ -189,12 +191,33 @@ typedef struct		s_list
 */
 
 /* Cub3D.c */
-// int **save_int(char **map);
-int     init_mlx(t_info *info);
-int     init_key(t_info *info);
 int     key_press(int key, t_info *info);
 int     key_release(int key, t_info *info);
 int     close_win(int keycode, int x, int y, void *param);
+void	check_leaks();
+
+/* calc_floor, wall */
+void    set_raydir(t_floordata *floor, t_info *info, int y);
+void    set_texture_vec(t_floordata *floor);
+void    set_texture_num(t_floordata *floor);
+void    floor_cast(t_info *info);
+void    init_DDA_cast(t_wallData *wData, t_info *info);
+void    stepProgress_until_hit(t_wallData *wData, t_info *info);
+double  calc_perp_dist(t_wallData *wData, t_info *info);
+void    set_DDA(t_wallData *wData, t_info *info, int cur_x);
+void    wall_cast(t_info *info);
+
+/* draw_floor */
+void    render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
+
+/* engine_run.c */
+void    engine_run(t_info *info);
+int     render(t_info *info);
+void    cal_vec(t_info *info);
+
+/* engine.c */
+void    hook_set(t_info *info);
+// void    engine_set(t_info *info);
 
 /* utils.c */
 int	utils_white_space(char c);
@@ -202,9 +225,19 @@ void	utils_bzero(void *s, size_t n);
 int	utils_read_another(char *line, int i);
 int	utils_read(char **map, char *line, t_info *info);
 
+/* gnl */
+size_t	utils_strlen(const char *s);
+size_t	utils_strlcpy(char *dest, const char *src, size_t dstsize);
+size_t	utils_strlcat(char *dest, const char *src, size_t dstsize);
+char	*utils_strjoin(char *s1, char *s2);
+char	*utils_strdup(const char *s1);
+int	utils_strchr(char *string);
+int	gnl_split(char **string, char **line, int i);
+int	gnl_return(char **string, char **line, int read_size);
+int	get_next_line(int fd, char **line);
+
 /* init_map.c */
 void    utils_bzero(void *s, size_t n);
-int     init_map(t_info *info);
 void    get_map_size(t_info *info);
 char    **read_world_map(char *argv);
 int     read_map_path(char *line, char fir, char sec, t_info *info);
@@ -214,50 +247,47 @@ int     read_map(char *line, char **map, int i, int readed);
 int     utils_read(char **map, char *line, t_info *info);
 char    *read_line_map(char *argv, t_info info);
 
-/* parse.c */
+/* parse.c 
 void    set_info_pos(t_info *info);
-void    init_info(t_info *info);
 void    load_texture(t_info *info);
 void     set_pos(t_info *info);
+*/
 
-/* engine.c */
-void    hook_set(t_info *info);
-void    engine_set(t_info *info);
+/* init.c */
+int	init_textures(t_info *info, int num);
+int 	init_map(t_info *info, char *map_name);
+int	    init_key(t_info *info);
+int	init_player(t_info *info);
+int	init_win_img(t_info *info);
+int	init_info(t_info *info, char *argv);
+t_info	*init_info_mlx(void);
 
-/* engine_run.c */
-void    engine_run(t_info *info);
-int     render(t_info *info);
-void    cal_vec(t_info *info);
+/* map_parse.c */
+void	get_map_size(t_info *info);
+int	read_map(char *line, char **map, int i, int readed);
+char	*read_line_map(char *argv, t_info info);
+char	**read_world_map(char *argv);
+
+/* map_setting.c */
+int	read_map_path(char *line, char fir, char sec, t_info *info);
+int	read_map_color(char *line, char fc, t_info *info);
+int	read_map_setting(char *line, int i, t_info *info);
 
 /* movement.c */
 int	    empty_chk_map(t_map *map, int x, int y);
+void	player_move_front(t_info *info);
+void	player_move_back(t_info *info);
+void	player_move_left(t_info *info);
+void	player_move_right(t_info *info);
 void	rotate_left(t_info *info);
 void	rotate_right(t_info *info);
-void	key_update(t_info *info);
-
-/* calculate.c */
-void    floor_cast(t_info *info);
-void    set_texture_vec(t_floordata *floor);
-void    set_floor_vec(t_floordata *floor, t_info *info);
-void    set_raydir(t_floordata *floor, t_info *info, int y);
-
-/* draw_floor */
-void    render_floor(t_floordata *floor, t_info *info, int x, int y);
-
-
-/* calculate_ceil */
-void    wall_cast(t_info *info);
-
+int	key_update(t_info *info);
 
 /* utils */
-int	    ft_strlen(char *str);
-void	error_exit(char *str);
-
-/* init.c */
-void	init_info(t_info *info);
-int 	init_map(t_info *info);
-int	    init_key(t_info *info);
-int     init_mlx(t_info *info);
+int	utils_white_space(char c);
+void	utils_bzero(void *s, size_t n);
+int	utils_read_another(char *line, int i);
+int	utils_read(char **map, char *line, t_info *info);
 
 /* wall_cast.c */
 void    set_wall_data(t_wallData *wData, t_info *info);
