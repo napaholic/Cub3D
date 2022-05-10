@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 14:54:15 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 14:59:17 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ typedef struct	s_info
 	//고정으로 바꿔도 되는 창 크기
 	int		win_wid;
 	int		win_hei;
-	// int buf[info->win_hei][info->win_wid];
+	int buf[640][480];
 	// bool	key_check[4] = {0, 0, 0, 0};
 	t_pos	*pos;
 	t_key	*key;
