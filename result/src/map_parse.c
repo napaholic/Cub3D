@@ -1,13 +1,59 @@
 #include "../inc/Cub3D.h"
 
+int	utils_check_txt_path(char *path)
+{
+	int	i;
+
+	i = 0;
+	//초반 공백 지나가기
+	while (utils_white_space(path[i]))
+		++i;
+	//NO SO WE EA 아니면 실패
+	if ((path[i] != 'N' && path[i] != 'S' && path[i] != 'W' && path[i] != 'E') || \
+		(path[i + 1] != 'O' && path[i + 1] != 'E' && path[i + 1] != 'A'))
+		return (0);
+	//NO SO WE EA 지나가기
+	i += 2;
+	//공백 지나가기
+	while (utils_white_space(path[i]))
+		++i;
+	// ./으로 시작하지 않는 path는 실패
+	if (path[i] != '.' && path[i + 1] != '/')
+		return (0);
+	//path지나가기
+	while (utils_isprint(path[i]) && !utils_white_space(path[i]) && path[i] != '\0')
+		++i;
+	//path뒤에 빈 공간 지나가기
+	while (utils_white_space(path[i]))
+		++i;
+	//'\0'으로 안끝나고 더 있으면 잘못된 path
+	if (path[i] != '\0')
+		return (0);
+	return (1);
+}
+
 int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
-	(void)line;
-	(void)first;
-	(void)second;
-	(void)idx;
-	(void)info;
-	return 0;
+	char	*path;
+
+	if (!utils_check_txt_path(line))
+	{
+		printf("Error\n wrong path: %s\n", line);
+		exit(1);
+	}
+	while (utils_white_space(line[idx]))
+		++idx;
+	//파일 실행권한, 확장명 확인(xpm)
+	if (first == 'N' && second == 'O')
+		return (texture_set(info, path, TEX_WALL_N));
+	if (first == 'S' && second == 'O')
+		return (texture_set(info, path, TEX_WALL_S));
+	if (first == 'E' && second == 'A')
+		return (texture_set(info, path, TEX_WALL_E));
+	if (first == 'W' && second == 'E')
+		return (texture_set(info, path, TEX_WALL_W));
+	else
+		return (0);
 }
 
 int	read_color(char *line, int c, int idx, t_info *info)
