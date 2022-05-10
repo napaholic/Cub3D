@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:21:50 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 12:43:32 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <string.h>
 
 /* mlx */
 # define X_KEY_PRESS	2
@@ -38,31 +37,29 @@
 # define KEY_W		13
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
-# define KEY_DOWN	125
-# define KEY_UP		126
+// # define KEY_DOWN	125
+// # define KEY_UP		126
 
 /* texture */
-# define texture_ceil   6
-# define floor_tex1 4
-# define floor_tex2 5
-# define TEX_WALL_N 0
-# define TEX_WALL_S 1
-# define TEX_WALL_E 2
-# define TEX_WALL_W 3
+//map parse할때 path들고가서 직접 추가하기
+// # define texture_ceil   6
+// # define floor_tex1 4
+// # define floor_tex2 5
+// # define TEX_WALL_N 0
+// # define TEX_WALL_S 1
+// # define TEX_WALL_E 2
+// # define TEX_WALL_W 3
 
 /* step_vector */
 # define POSITIVE 1
 # define NEGATIVE -1
 
 /* display */
-#define width 640
-#define height 480
-#define texWidth 64
-#define texHeight 64
-
-/*일단 추가한 고정길이... -> 직접 재는걸로 변경 필요~*/
-// #define mapWidth 24
-// #define mapHeight 24
+//그냥 생성할때 값 직접 넣어주기
+// #define width 640
+// #define height 480
+// #define texWidth 64
+// #define texHeight 64
 
 /* image struct */
 typedef struct	s_img
@@ -72,71 +69,81 @@ typedef struct	s_img
 	int endian;
 	int img_width;
 	int img_height;
+	// int size;
+	int	bits_per_pixel;
 }				t_img;
 
-/* mlx struct */
-typedef struct	s_mlx
-{
-	void *mlxptr;
-	void *winptr;
-}				t_mlx;
+// /* mlx struct */
+//info로 이동
+// typedef struct	s_mlx
+// {
+// 	void *mlxptr;
+// 	void *winptr;
+// }				t_mlx;
 
+/* map struct */
 typedef struct	s_map
 {
-	char *line_map;
 	char **world_map;
-	int mapWidth;
-	int mapHeight;
-	int path; //NO, SO, WE, EA
-	int color; //F, C
+	// char *line_map;-> 구조체에 안넣고 mapsize구한후 바로 free
+	char *map_path; //->map파일 권한때문에 확인하기위해 일단 넣어둠
+	int map_width;
+	int map_height;
 }				t_map;
 
+/* key struct */
 typedef struct	s_key
 {
+	int w;
+	int a;
+	int s;
+	int d;
 	int left;
-	int up;
-	int down;
 	int right;
-	int esc;
+	// int esc; ->esc하면 바로 free함수 쓰고 종료
 }				t_key;
 
-typedef struct s_pos
+/* pos struct */
+typedef struct	s_pos
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double moveSpeed;
-	double rotSpeed;
-}               t_pos;
+	//이름만 변경
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
+}				t_pos;
 
+/* wall_data struct */
 typedef struct s_wallData
 {
-	double		camera_x;
-	double		rayDirX;
-	double		rayDirY;
-	int		    map_posX;
-	int         map_posY;
-	double      sideDistX;
-	double      sideDistY;
-	int     	stepX;
-	int     	stepY;
-	double		d_DistX;
-	double		d_DistY;
-	int         side;
-	double		perp_wall_dist;
-	int			lineheight;
-	int			draw_start;
-	int			draw_end;
-	double		wallx;
-	int			texX;
-	double		step_val;
-	double		tex_pos;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_pos_x;
+	int		map_pos_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		step_x;
+	int		step_y;
+	double	d_DistX;
+	double	d_DistY;
+	int		side;
+	double	perp_wall_dist;
+	int		lineheight;
+	int		draw_start;
+	int		draw_end;
+	// double		wallx;
+	// int			texX;
+	// double		step_val;
+	// double		tex_pos;
 	int         hit;
 }               t_wallData;
 
+/* floor_data 
 typedef struct s_floordata
 {
 	float	ray_dirX0;
@@ -155,20 +162,31 @@ typedef struct s_floordata
 	int		floorTexture;
 	int		ceiling_texture;
 }	            t_floordata;
-
+*/
 
 /* main struct */
 typedef struct	s_info
 {
-	int buf[height][width];
-	int **texture;
+	//mlx 구조체 여기로 이동
+	void			*mlx;
+	void			*win;
+
+	// int buf[height][width];
 	// bool	key_check[4] = {0, 0, 0, 0};
 	t_pos   *pos;
 	t_key	*key;
-	t_mlx	*mlx;
 	t_img	*img;
+	t_img	**txt; //texture도 map**로 선언
 	t_map	*map;
 }				t_info;
+
+/* 일단 들고온 list
+typedef struct		s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+*/
 
 /* Cub3D.c */
 // int **save_int(char **map);
