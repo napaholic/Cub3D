@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 14:59:17 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 15:26:38 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ typedef struct	s_wall_data
 	int		lineheight;
 	int		draw_start;
 	int		draw_end;
-	// double		wallx;
-	// int			texX;
-	// double		step_val;
-	// double		tex_pos;
+	double		wallx; //@
+	int			texX; //@
+	double		step_val; //@
+	double		tex_pos; //@
 	int		hit;
 }				t_wall_data;
 
@@ -214,12 +214,6 @@ void	engine_run(t_info *info);
 int		render(t_info *info);
 void	cal_vec(t_info *info);
 
-/* utils.c */
-int		utils_white_space(char c);
-void	utils_bzero(void *s, size_t n);
-int		utils_read_another(char *line, int i);
-int		utils_read(char **map, char *line, t_info *info);
-
 /* gnl */
 size_t	utils_strlen(const char *s);
 size_t	utils_strlcpy(char *dest, const char *src, size_t dstsize);
@@ -232,14 +226,12 @@ int		gnl_return(char **string, char **line, int read_size);
 int		get_next_line(int fd, char **line);
 
 /* init_map.c */
-void	utils_bzero(void *s, size_t n);
 void	get_map_size(t_info *info);
 char	**read_world_map(char *argv);
 int		read_map_path(char *line, char fir, char sec, t_info *info);
 int		read_map_color(char *line, char fc, t_info *info);
 int		read_map_setting(char *line, int i, t_info *info);
 int		read_map(char *line, char **map, int i, int readed);
-int		utils_read(char **map, char *line, t_info *info);
 char	*read_line_map(char *argv, t_info info);
 
 /* parse.c 

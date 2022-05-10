@@ -9,16 +9,15 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					map_parse.c \
 					parse.c \
 					movement.c \
-					utils.c \
 					init.c \
 					texture_set.c \
 					loop_hook.c \
 					calculate_floor.c \
 					calculate_wall.c \
-					draw_floor.c \
 					engine_run.c \
 					wall_cast.c \
 					utils.c)
+					# draw_floor.c \
 
 OBJS = $(SRCS:.c=.o)
 

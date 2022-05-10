@@ -55,7 +55,8 @@ void	floor_cast(t_info *info) {
 		{
 			set_texture_vec(&f_data, info);
 			set_texture_num(&f_data);
-			render_floor(&f_data, info, x, y);
+			// render_floor(&f_data, info, x, y);
+			//모르겠음
 		}
 	}
 }
