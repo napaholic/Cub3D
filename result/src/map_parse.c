@@ -26,7 +26,7 @@ int	utils_check_txt_path(char *path)
 	//path뒤에 빈 공간 지나가기
 	while (utils_white_space(path[i]))
 		++i;
-	//'\0'으로 안끝나고 더 있으면 잘못된 path
+	//'\0'으로 안끝나고 더 있으면 잘못된 path 
 	if (path[i] != '\0')
 		return (0);
 	return (1);
