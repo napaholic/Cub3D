@@ -33,7 +33,7 @@ $(NAME) : $(OBJS)
 bonus:
 	make all -C $(BONUS)
 
-clean:
+clean: 
 	rm -f $(OBJS)
 	# make fclean -C $(BONUS)
 
