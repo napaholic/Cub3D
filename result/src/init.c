@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 14:45:53 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 16:06:38 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ int	init_player(t_info *info)
 
 int	init_win_img(t_info *info)
 {
-	char	*map = "1";
+	char	*map;
 
-	if (!(map/* = map읽을함수(info->map->map_name, info)*/))
+	map = read_map(info->map->map_name, info);
+	if (!map)
 		return (0);
 	// translate_map(map, info); //mapparse
 	if (!(info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D")))

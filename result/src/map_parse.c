@@ -1,72 +1,68 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_parse.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 12:52:00 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 13:25:35 by yeju             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/Cub3D.h"
 
-void	get_map_size(t_info *info)
+int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
-	int	i;
-	int	wid;
-	int	wid2;
-	int	hei;
-
-	i = 0;
-	wid = 0;
-	wid2 = 0;
-	hei = 0;
-	while (info->map->line_map[i] != '\0')
-	{
-		if (info->map->line_map[i] == '\n')
-			++hei;
-		++i;
-	}
-	info->map->map_height = hei;
-	i = 0;
-	while (info->map->line_map[i] != '\0')
-	{
-		//testcode
-		// printf("i : %d ", i);
-		// printf("wid : %d ", wid);
-		// printf("wid2 : %d\n", wid2);
-		wid = 0;
-		while (info->map->line_map[i++] != '\n')
-			++wid;
-		if (wid2 < wid)
-			wid2 = wid;
-		++i;
-		info->map->map_width = wid2;
-	}
-	return ;
+	(void)line;
+	(void)first;
+	(void)second;
+	(void)idx;
+	(void)info;
+	return 0;
 }
 
-int	read_map(char *line, char **map, int i, int readed)
+int	read_color(char *line, int c, int idx, t_info *info)
 {
-	if (line[i] == '1' || line[i] == '0' \
-		|| line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
-	{
-		*map = utils_strjoin(*map, line);
-		if (readed == 0 && line[i])
-			*map = utils_strjoin(*map, "\n");
-		free(line);
-		return (1);
-	}
-	// i = 0;
-	// while (*map)
-	// 	++i;
-	// *map[i] = '\0';
-	return (0);
+	(void)line;
+	(void)c;
+	(void)idx;
+	(void)info;
+	return 0;
 }
 
-char	*read_line_map(char *argv, t_info info)
+//반환값: 2:종료,오류 / 1: 정상작동
+int	read_map_setting(char *line, int idx, t_info *info)
+{
+	int	ret;
+	int	first;
+	int	second;
+
+	if (line[idx] && line[idx + 1])
+	{
+		first = line[idx];
+		second = line[idx + 1];
+	}
+	else
+		return (2);
+	if (first == 'N' || first == 'W' || first == 'E' || first == 'S')
+		ret = read_txt_path(line, first, second, idx, info);
+	else if (first == 'F' || first == 'C')
+		ret = read_color(line, line[idx], idx, info);
+	else
+		ret = 2;
+	return (ret);
+}
+
+int	read_map_sub(char *line, char **map, t_info *info)
+{
+	int	idx;
+	int	ret;
+
+	(void)map;
+	idx = 0;
+	while (utils_white_space(line[idx]) == 1)
+		++idx;
+	if (line[idx] != '\0')
+	{
+		printf("%s", "Error\n map: incorrect configuration\n");
+		exit(1);
+	}
+	ret = read_map_setting(line, idx, info);
+	if (ret == 0)
+		return (0);
+	return (1);
+}
+
+char	*read_map(char *argv, t_info *info)
 {
 	int		fd;
 	int		ret;
@@ -75,49 +71,22 @@ char	*read_line_map(char *argv, t_info info)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		printf("%s", "ERROR: file open\n");
+	{
+		printf("%s", "ERROR\n file open\n");
+		return (0);
+	}
 	map = (char *)malloc(sizeof(char) * 2);
 	utils_bzero(map, sizeof(char));
 	line = (char *)malloc(sizeof(char) * 1);
 	utils_bzero(line, sizeof(char));
 	while ((ret = get_next_line(fd, &line)) != -1)
 	{
-		utils_read(&map, line, &info);
+		if (!read_map_sub(line, &map, info))
+			return (0);
 		line = NULL;
-		free(line);
 		if (ret == 0)
 			break ;
 	}
-	//test code
-	// printf("최종맵: \n%s", map);
-	return (map);
-}
-
-char	**read_world_map(char *argv)
-{
-	int		fd;
-	char	*tmp;
-	int		i;
-	char	**map;
-
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR\n");
-	i = 0;
-	while ((get_next_line(fd, &tmp)))
-	{
-		free(tmp);
-		i++;
-	}
-	free(tmp);
-	map = (char **)malloc(sizeof(char *) * (i + 2));
-	close(fd);
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		printf("%s", "ERROR\n");
-	i = 0;
-	while ((get_next_line(fd, &map[i])))
-		i++;
-	map[++i] = 0;
+	free(line);
 	return (map);
 }

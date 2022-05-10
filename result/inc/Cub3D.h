@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 15:35:03 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 16:32:04 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,13 +206,13 @@ int		gnl_return(char **string, char **line, int read_size);
 int		get_next_line(int fd, char **line);
 
 /* init_map.c */
-void	get_map_size(t_info *info);
-char	**read_world_map(char *argv);
-int		read_map_path(char *line, char fir, char sec, t_info *info);
-int		read_map_color(char *line, char fc, t_info *info);
-int		read_map_setting(char *line, int i, t_info *info);
-int		read_map(char *line, char **map, int i, int readed);
-char	*read_line_map(char *argv, t_info info);
+// void	get_map_size(t_info *info);
+// char	**read_world_map(char *argv);
+// int		read_map_path(char *line, char fir, char sec, t_info *info);
+// int		read_map_color(char *line, char fc, t_info *info);
+// int		read_map_setting(char *line, int i, t_info *info);
+// int		read_map(char *line, char **map, int i, int readed);
+// char	*read_line_map(char *argv, t_info info);
 
 /* init.c */
 int		init_textures(t_info *info, int num);
@@ -224,16 +224,16 @@ int		init_info(t_info *info, char *argv);
 t_info	*init_info_mlx(void);
 
 /* map_parse.c */
-void	get_map_size(t_info *info);
-int		read_map(char *line, char **map, int i, int readed);
-char	*read_line_map(char *argv, t_info info);
-char	**read_world_map(char *argv);
+char	*read_map(char *argv, t_info *info);
+int	read_map_sub(char *line, char **map, t_info *info);
+int	read_map_setting(char *line, int idx, t_info *info);
+int	read_color(char *line, int c, int idx, t_info *info);
+int	read_txt_path(char *line, int first, int second, int idx, t_info *info);
 
 /* texture_set.c */
 int		read_map_path(char *line, char fir, char sec, t_info *info);
 int		texture_set(t_info *info, char *pth, int idx);
 int		read_map_color(char *line, char fc, t_info *info);
-int		read_map_setting(char *line, int i, t_info *info);
 
 /* movement.c */
 int		empty_chk_map(t_map *map, int x, int y);
