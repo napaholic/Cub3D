@@ -159,7 +159,8 @@ typedef struct	s_info
 	//바닥, 천장 색깔
 	int		floor_color;
 	int		ceiling_color;
-
+	//텍스쳐 배열
+	int     **texture;
 	//구조체
 	t_pos	*pos;
 	t_key	*key;
