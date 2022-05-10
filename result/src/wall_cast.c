@@ -11,9 +11,9 @@ void    set_wall_data(t_wallData *wData, t_info *info)
 		wData->draw_end = height - 1;
 	//wData->stepX = x_sign
 	if (wData->side == 0)
-		wData->wallx = info->pos->posY + wData->perp_wall_dist * wData->raydir_y;
+		wData->wallx = info->pos->pos_y + wData->perp_wall_dist * wData->raydir_y;
 	else
-		wData->wallx = info->pos->posX + wData->perp_wall_dist * wData->raydir_x;
+		wData->wallx = info->pos->pos_x + wData->perp_wall_dist * wData->raydir_x;
 	wData->wallx -= floor((wData->wallx));
 }
 

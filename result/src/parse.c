@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:52:04 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 13:25:15 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 14:33:29 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@
 // 		{
 // 			if (info->map->world_map[wid][hei] == 'N')
 // 			{
-// 				info->pos->posX = (double)hei;
-// 				info->pos->posY = (double)wid;
+// 				info->pos->pos_x = (double)hei;
+// 				info->pos->pos_y = (double)wid;
 // 			}
 // 		}
 // 	}
-// 	if (info->pos->posX == -1.0 && info->pos->posY == -1.0)
+// 	if (info->pos->pos_x == -1.0 && info->pos->pos_y == -1.0)
 // 		printf("pos세팅안됨\n");
 // 	//test code
-// 	// printf("posX: %f\n", info->posX);
-// 	// printf("posY: %f\n", info->posY);
+// 	// printf("pos_x: %f\n", info->pos_x);
+// 	// printf("pos_y: %f\n", info->pos_y);
 // }
 
 // void	set_info_pos(t_info *info)
