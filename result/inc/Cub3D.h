@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 15:26:38 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 15:35:03 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* include headers */
 #include "../mlx/mlx.h"
 #include <math.h>
-#include <fcntl.h> //file open
+#include <fcntl.h>
 
 /*일단추가한헤더...*/
 # include <stdio.h>
@@ -36,8 +36,6 @@
 # define KEY_W			13
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
-// # define KEY_DOWN	125
-// # define KEY_UP		126
 
 /* texture */
 # define TEX_WALL_N		0
@@ -52,13 +50,6 @@
 # define POSITIVE 1
 # define NEGATIVE -1
 
-/* display */
-//그냥 생성할때 값 직접 넣어주기
-// #define width 640
-// #define height 480
-// #define texWidth 64
-// #define texHeight 64
-
 /* image struct */
 typedef struct	s_img
 {
@@ -71,20 +62,12 @@ typedef struct	s_img
 	int endian;
 }				t_img;
 
-// /* mlx struct */
-//info로 이동
-// typedef struct	s_mlx
-// {
-// 	void *mlxptr;
-// 	void *winptr;
-// }				t_mlx;
-
 /* map struct */
 typedef struct	s_map
 {
 	char	**world_map;
 	char	*line_map; //-> 구조체에 안넣고 mapsize구한후 바로 free
-	char	*map_name; //->map파일 권한때문에 확인하기위해 일단 넣어둠
+	char	*map_name; //->map파일 권한때문에 일단 넣어둠
 	int		map_width;
 	int		map_height;
 }				t_map;
@@ -98,13 +81,11 @@ typedef struct	s_key
 	int	d;
 	int	left;
 	int	right;
-	// int esc; ->esc하면 바로 free함수 쓰고 종료
 }				t_key;
 
 /* pos struct */
 typedef struct	s_pos
 {
-	//이름만 변경
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -173,11 +154,10 @@ typedef struct	s_info
 	int		win_wid;
 	int		win_hei;
 	int buf[640][480];
-	// bool	key_check[4] = {0, 0, 0, 0};
 	t_pos	*pos;
 	t_key	*key;
 	t_img	*img;
-	t_img	**txt; //texture도 map**로 선언
+	t_img	**txt;
 	t_map	*map;
 }				t_info;
 
@@ -234,12 +214,6 @@ int		read_map_setting(char *line, int i, t_info *info);
 int		read_map(char *line, char **map, int i, int readed);
 char	*read_line_map(char *argv, t_info info);
 
-/* parse.c 
-void    set_info_pos(t_info *info);
-void    load_texture(t_info *info);
-void     set_pos(t_info *info);
-*/
-
 /* init.c */
 int		init_textures(t_info *info, int num);
 int		init_map(t_info *info, char *map_name);
@@ -285,6 +259,5 @@ int		set_color(t_wall_data *wall_data, t_info *info);
 /* loop_hook.c */
 int		loop(t_info *info);
 void	hook_set(t_info *info);
-// void	engine_set(t_info *info);
 
 # endif
