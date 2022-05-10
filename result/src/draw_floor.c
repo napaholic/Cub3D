@@ -11,3 +11,18 @@ void    render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y)
 	color = (color >> 1) & 8355711;
 	info->buf[info->win_hei - cur_y - 1][cur_x] = color;
 }
+
+void    draw(t_info *info)
+{
+	int y;
+	int x;
+
+	y = -1;
+	while (++y < info->win_hei)
+	{
+		x = -1;
+		while (++x < info->win_wid)
+			info->img->data[y * info->win_wid + x] = info->buf[y][x];
+	}
+	mlx_put_image_to_window(info->mlx, info->win, info->img->img, 0, 0);
+}
