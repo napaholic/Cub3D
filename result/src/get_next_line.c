@@ -6,13 +6,13 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 06:23:51 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/02 21:16:55 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 13:21:56 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../inc/Cub3D.h"
 
-int	ft_strchr(char *string)
+int	utils_strchr(char *string)
 {
 	int	i;
 
@@ -32,27 +32,27 @@ int	gnl_split(char **string, char **line, int i)
 	int		len;
 
 	(*string)[i] = '\0';
-	*line = ft_strdup(*string);
-	len = ft_strlen_gnl(*string + i + 1);
+	*line = utils_strdup(*string);
+	len = utils_strlen(*string + i + 1);
 	if (len == 0)
 	{
 		free(*string);
 		*string = 0;
 		return (1);
 	}
-	tmp = ft_strdup(*string + i + 1);
+	tmp = utils_strdup(*string + i + 1);
 	free(*string);
 	*string = tmp;
 	return (1);
 }
 
-int	return_this(char **string, char **line, int read_size)
+int	gnl_return(char **string, char **line, int read_size)
 {
 	int	i;
 
 	if (read_size < 0)
 		return (-1);
-	i = ft_strchr(*string);
+	i = utils_strchr(*string);
 	if (*string && i >= 0)
 		return (gnl_split(string, line, i));
 	else if (*string)
@@ -61,30 +61,30 @@ int	return_this(char **string, char **line, int read_size)
 		*string = 0;
 		return (0);
 	}
-	*line = ft_strdup("");
+	*line = utils_strdup("");
 	return (0);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	static char	*string[OPEN_MAX];
-	char		buffer[BUFFER_SIZE + 1];
+	static char	*string[32];
+	char		buffer[256 + 1];
 	int			read_size;
 	int			i;
 
-	if ((fd < 0) || (OPEN_MAX < fd) || (!line) || (BUFFER_SIZE <= 0))
+	if ((fd < 0) || (32 < fd) || (!line) || (256 <= 0))
 		return (-1);
 	read_size = 1;
 	while (read_size > 0)
 	{
-		read_size = read(fd, buffer, BUFFER_SIZE);
+		read_size = read(fd, buffer, 256);
 		if (read_size < 0)
 			break ;
 		buffer[read_size] = '\0';
-		string[fd] = ft_strjoin(string[fd], buffer);
-		i = ft_strchr(string[fd]);
+		string[fd] = utils_strjoin(string[fd], buffer);
+		i = utils_strchr(string[fd]);
 		if (i >= 0)
 			return (gnl_split(&string[fd], line, i));
 	}
-	return (return_this(&string[fd], line, read_size));
+	return (gnl_return(&string[fd], line, read_size));
 }

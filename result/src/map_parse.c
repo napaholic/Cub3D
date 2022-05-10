@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:52:00 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/05 13:31:34 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 13:25:35 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_map_size(t_info *info)
 			++hei;
 		++i;
 	}
-	info->map->mapHeight = hei;
+	info->map->map_height = hei;
 	i = 0;
 	while (info->map->line_map[i] != '\0')
 	{
@@ -43,7 +43,7 @@ void	get_map_size(t_info *info)
 		if (wid2 < wid)
 			wid2 = wid;
 		++i;
-		info->map->mapWidth = wid2;
+		info->map->map_width = wid2;
 	}
 	return ;
 }
@@ -53,9 +53,9 @@ int	read_map(char *line, char **map, int i, int readed)
 	if (line[i] == '1' || line[i] == '0' \
 		|| line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 	{
-		*map = ft_strjoin(*map, line);
+		*map = utils_strjoin(*map, line);
 		if (readed == 0 && line[i])
-			*map = ft_strjoin(*map, "\n");
+			*map = utils_strjoin(*map, "\n");
 		free(line);
 		return (1);
 	}

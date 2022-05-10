@@ -1,24 +1,24 @@
 NAME = Cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g
+MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
 
-SRCS =	./src/Cub3D.c	\
-		./gnl/get_next_line_utils.c	\
-		./gnl/get_next_line.c		\
-		./src/map_parse.c 			\
-		./src/parse.c 				\
-		./src/movement.c 			\
-		./src/utils.c 				\
-		./src/init.c 				\
-		./src/map_setting.c			\
-		./src/engine.c				\
-		./src/calculate_floor.c		\
-		./src/calculate_wall.c		\
-		./src/draw_floor.c			\
-		./src/engine_run.c			\
-		./src/utils.c				\
-		./src/wall_cast.c
+SRCS =	$(addprefix src/, Cub3D.c \
+					get_next_line.c \
+					get_next_line_utils.c \
+					map_parse.c \
+					parse.c \
+					movement.c \
+					init.c \
+					texture_set.c \
+					loop_hook.c \
+					calculate_floor.c \
+					calculate_wall.c \
+					engine_run.c \
+					wall_cast.c \
+					utils.c)
+					# draw_floor.c \
+
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -32,7 +32,7 @@ $(NAME) : $(OBJS)
 bonus:
 	make all -C $(BONUS)
 
-clean:
+clean: 
 	rm -f $(OBJS)
 	# make fclean -C $(BONUS)
 
