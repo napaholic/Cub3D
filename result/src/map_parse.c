@@ -1,37 +1,59 @@
 #include "../inc/Cub3D.h"
 
-int	utils_check_txt_path(char *path)
+int	utils_check_txt_path(char *line)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	//초반 공백 지나가기
-	while (utils_white_space(path[i]))
+	j = 0;
+	while (utils_white_space(line[i]))
 		++i;
-	//NO SO WE EA 아니면 실패
-	if ((path[i] != 'N' && path[i] != 'S' && path[i] != 'W' && path[i] != 'E') || \
-		(path[i + 1] != 'O' && path[i + 1] != 'E' && path[i + 1] != 'A'))
+	if ((line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E') || \
+		(line[i + 1] != 'O' && line[i + 1] != 'E' && line[i + 1] != 'A'))
 		return (0);
-	//NO SO WE EA 지나가기
 	i += 2;
-	//공백 지나가기
-	while (utils_white_space(path[i]))
+	while (utils_white_space(line[i]))
 		++i;
-	// ./으로 시작하지 않는 path는 실패
-	if (path[i] != '.' && path[i + 1] != '/')
+	if (line[i] != '.' && line[i + 1] != '/')
 		return (0);
-	//path지나가기
-	while (utils_isprint(path[i]) && !utils_white_space(path[i]) && path[i] != '\0')
-		++i;
-	//path뒤에 빈 공간 지나가기
-	while (utils_white_space(path[i]))
-		++i;
-	//'\0'으로 안끝나고 더 있으면 잘못된 path 
-	if (path[i] != '\0')
+	while (utils_isprint(line[i]) && !utils_white_space(line[i]) && line[i] != '\0')
+		i++;
+	while (utils_white_space(line[i]))
+		i++;
+	if (line[i] != '\0')
 		return (0);
 	return (1);
 }
 
+//txt path가 유효한지 확인
+int	utils_check_txt_execute(char *path)
+{
+	int	fd;
+	int	len;
+
+	len = utils_strlen(path);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		close(fd);
+		return (0);
+	}
+	if (path[len - 1] != 'm' || path[len - 2] != 'p' || \
+		path[len - 3] != 'x' || path[len - 4] != '.')
+		return (0);
+	return (1);
+}
+
+int	texture_set(t_info *info, char *path, int idx)
+{
+	(void)info;
+	(void)path;
+	(void)idx;
+	return 0;
+}
+
+// texture_set 안에서 utils_check_txt_execute()로 txtpath 확인하기
 int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
 	char	*path;
@@ -41,9 +63,12 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 		printf("Error\n wrong path: %s\n", line);
 		exit(1);
 	}
+	path = ""; //path만 따로 저장하는 함수 만들기 ->구조체에해야할지고민
+	//test code
+	//printf("txt path is: %s\n", path);
+	// utils_check_txt_execute(path);
 	while (utils_white_space(line[idx]))
 		++idx;
-	//파일 실행권한, 확장명 확인(xpm)
 	if (first == 'N' && second == 'O')
 		return (texture_set(info, path, TEX_WALL_N));
 	if (first == 'S' && second == 'O')
@@ -56,13 +81,47 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 		return (0);
 }
 
+int	utils_check_color(char *line, int c, int idx)
+{
+	int	i;
+
+	i = 0;
+	while (utils_white_space(line[idx]))
+		idx++;
+	if (line[idx] == c)
+		i = idx + 1;
+	while (utils_white_space(line[i]))
+		i++;
+	while (utils_isdigit(line[i]) || line[i] == ',')
+		i++;
+	while (utils_white_space(line[i]))
+		i++;
+	if (line[i] != '\0')
+		return (0);
+	return (1);
+}
+
 int	read_color(char *line, int c, int idx, t_info *info)
 {
-	(void)line;
-	(void)c;
-	(void)idx;
-	(void)info;
-	return 0;
+	int	rgb;
+
+	rgb = 0;
+	//잘못된 형식인지 확인
+	if (!utils_check_color(line, c, idx))
+	{
+		printf("Error\n wrong color\n");
+		exit(1);
+	}	
+	//rgb로 변환해서 rgb에 담기
+	// rgb = rgb로 변환해주는 함수()
+	
+	// 저장해주기
+	if (c == 'F')
+		info->floor_color = rgb;
+	else if (c == 'C')
+		info->ceiling_color = rgb;
+	free(line); //txt path랑 color다 읽었으니 free
+	return (1);
 }
 
 //반환값: 2:종료,오류 / 1: 정상작동
@@ -103,7 +162,7 @@ int	read_map_sub(char *line, char **map, t_info *info)
 		exit(1);
 	}
 	ret = read_map_setting(line, idx, info);
-	if (ret == 0)
+	if (ret == 2)
 		return (0);
 	return (1);
 }

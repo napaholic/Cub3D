@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:12:58 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 17:36:10 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/10 19:04:02 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ int	utils_white_space(char c)
 int	utils_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
+		return (1);
+	else
+		return (0);
+}
+
+int	utils_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
 		return (1);
 	else
 		return (0);
