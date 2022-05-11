@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 19:17:00 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 17:52:31 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,14 @@ void	set_DDA(t_wall_data *wall_data, t_info *info, int cur_x);
 void	wall_cast(t_info *info);
 
 /* draw_floor */
-void	render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
+void    draw(t_info *info);
 
-/* engine_run.c */
-void	engine_run(t_info *info);
+/* loop_hook.c */
+void	hook_set(t_info *info);
 int		render(t_info *info);
 void	cal_vec(t_info *info);
+void	render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
+int		raycasting(t_info *info);
 
 /* gnl */
 size_t	utils_strlen(const char *s);
@@ -236,11 +238,17 @@ t_info	*init_info_mlx(void);
 
 /* map_parse.c */
 char	*read_map(char *argv, t_info *info);
-int		read_map_sub(char *line, char **map, t_info *info);
+int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret);
 int		read_map_setting(char *line, int idx, t_info *info);
 int		read_color(char *line, int c, int idx, t_info *info);
 int		read_txt_path(char *line, int first, int second, int idx, t_info *info);
+int	map_check(char *line, char **map, int idx, int gnl_ret);
+
 int		utils_check_txt_execute(char *path);
+int		utils_check_txt_path(char *line);
+int	utils_check_color(char *line, int c, int idx);
+int	texture_set(t_info *info, char *path, int idx);
+
 
 /* texture_set.c */
 int		read_map_path(char *line, char fir, char sec, t_info *info);
@@ -253,10 +261,10 @@ void	player_move_left(t_info *info);
 void	player_move_right(t_info *info);
 
 /* movement.c */
-void	player_move_front(t_info *info);
-void	player_move_back(t_info *info);
-void	rotate_left(t_info *info);
-void	rotate_right(t_info *info);
+int		player_move_front(t_info *info);
+int		player_move_back(t_info *info);
+int		rotate_left(t_info *info);
+int		rotate_right(t_info *info);
 int		key_update(t_info *info);
 
 /* utils */

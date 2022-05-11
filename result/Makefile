@@ -13,15 +13,17 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					loop_hook.c \
 					calculate_floor.c \
 					calculate_wall.c \
-					engine_run.c \
 					wall_cast.c \
+					draw_floor.c \
 					utils.c)
+					# engine_run.c \
 					# texture_set.c \
 					# draw_floor.c \
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
+	make clean
 
 %.o : %.c
 	${CC} ${CFLAGS} -c $< -o $@

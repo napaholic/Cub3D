@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 16:06:38 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 12:55:44 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	init_player(t_info *info)
 	return (1);
 }
 
-int	init_win_img(t_info *info)
+int	init_win_img(t_info *info) //@
 {
 	char	*map;
 

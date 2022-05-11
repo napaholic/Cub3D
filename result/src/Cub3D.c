@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:51:55 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 13:21:56 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 12:49:14 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,6 @@ int	main(int argc, char **argv)
 {
 	t_info	*info;
 
-/* info malloc까지 함수로 옮김
-	info = (t_info *)malloc(sizeof(t_info));
-	if (!info)
-		return (0);
-	utils_bzero(info, sizeof(t_info));
-*/
 	if (argc != 2)
 	{
 		printf("%s", "usage: ./Cub3D './map/path'");
@@ -84,20 +78,16 @@ int	main(int argc, char **argv)
 	info = init_info_mlx();
 	if (!info)
 		exit(1);
-	
 	// 1. map
 	// 2. vector & mlx init, mlx_new_window
 	// 3. textureLoad
 	if (!init_info(info, argv[1]))
 		exit(1);
-	// 4. hook
+	// 4. hook & engine renew
 	hook_set(info);
 
-	// 5. engine renew
-	// engine_run(info);
-
 	// 5. free & game end
-	// exit(1);
+	
 	// 6. leaks check
 	atexit(check_leaks);
 	return (0);
