@@ -34,6 +34,7 @@
 # define KEY_D			2
 # define KEY_S			1
 # define KEY_W			13
+# define KEY_E			14
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
 
@@ -80,6 +81,8 @@ typedef struct	s_key
 	int	a;
 	int	s;
 	int	d;
+	int e;//마우스 시점변환 토글
+	int e_delay;//마우스 딜레이
 	int	left;
 	int	right;
 }				t_key;
@@ -159,7 +162,8 @@ typedef struct	s_info
 	//바닥, 천장 색깔
 	int		floor_color;
 	int		ceiling_color;
-
+	//텍스쳐 배열
+	int     **texture;
 	//구조체
 	t_pos	*pos;
 	t_key	*key;
@@ -243,12 +247,14 @@ int		read_map_path(char *line, char fir, char sec, t_info *info);
 int		texture_set(t_info *info, char *pth, int idx);
 int		read_map_color(char *line, char fc, t_info *info);
 
-/* movement.c */
+/* mov_cal.c */
 int		empty_chk_map(t_map *map, int x, int y);
-void	player_move_front(t_info *info);
-void	player_move_back(t_info *info);
 void	player_move_left(t_info *info);
 void	player_move_right(t_info *info);
+
+/* movement.c */
+void	player_move_front(t_info *info);
+void	player_move_back(t_info *info);
 void	rotate_left(t_info *info);
 void	rotate_right(t_info *info);
 int		key_update(t_info *info);

@@ -12,13 +12,6 @@
 
 #include "../inc/Cub3D.h"
 
-int	empty_chk_map(t_map *map, int x, int y)
-{
-	if (map->world_map[x][y] == 0)
-		return (0);
-	return (1);
-}
-
 void	player_move_front(t_info *info)
 {
 	double	mvx;
@@ -83,15 +76,17 @@ int	key_update(t_info *info)
 {
 	if (info->key->w == 1)
 		player_move_front(info);
-	// if (info->key->a == 1)
-		// player_move_right(info);
+	if (info->key->a == 1)
+	//	player_move_left(info);
 	if (info->key->s == 1)
 		player_move_back(info);
-	// if (info->key->d == 1)
-		// player_move_left(info);
+	if (info->key->d == 1)
+	//	player_move_right(info);
 	if (info->key->left == 1)
 		rotate_left(info);
 	if (info->key->right == 1)
 		rotate_right(info);
+	if (info->key->e == 1)
+		//rotate_mouse(info);
 	return (1);
 }

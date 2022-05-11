@@ -28,6 +28,8 @@ int	key_press(int key, t_info *info)
 		info->key->left = 1;
 	else if (key == KEY_RIGHT && info->key->right == 0)
 		info->key->right = 1;
+	else if (key == KEY_E)
+		info->key->e  ^= 1;//xor연산 해놨습니당..
 	return (1);
 }
 
