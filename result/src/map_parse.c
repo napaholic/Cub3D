@@ -45,6 +45,7 @@ int	utils_check_txt_execute(char *path)
 	return (1);
 }
 
+//@
 int	texture_set(t_info *info, char *path, int idx)
 {
 	(void)info;
@@ -63,7 +64,7 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 		printf("Error\n wrong path: %s\n", line);
 		exit(1);
 	}
-	path = ""; //path만 따로 저장하는 함수 만들기 ->구조체에해야할지고민
+	path = ""; //path만 따로 저장하는 함수 만들기 ->구조체에해야할지고민 //@
 	//test code
 	//printf("txt path is: %s\n", path);
 	// utils_check_txt_execute(path);
@@ -106,14 +107,14 @@ int	read_color(char *line, int c, int idx, t_info *info)
 	int	rgb;
 
 	rgb = 0;
-	//잘못된 형식인지 확인
+	//잘못된 형식인지 확인 //@
 	if (!utils_check_color(line, c, idx))
 	{
 		printf("Error\n wrong color\n");
 		exit(1);
 	}	
-	//rgb로 변환해서 rgb에 담기
-	// rgb = rgb로 변환해주는 함수()
+	//rgb로 변환해서 rgb에 담기 //@
+	// rgb = rgb로 변환해주는 함수() //@
 	
 	// 저장해주기
 	if (c == 'F')
@@ -131,6 +132,8 @@ int	read_map_setting(char *line, int idx, t_info *info)
 	int	first;
 	int	second;
 
+	//test
+	printf("3: %s\n", line);
 	if (line[idx] && line[idx + 1])
 	{
 		first = line[idx];
@@ -147,7 +150,29 @@ int	read_map_setting(char *line, int idx, t_info *info)
 	return (ret);
 }
 
-int	read_map_sub(char *line, char **map, t_info *info)
+int	map_check(char *line, char **map, int idx, int gnl_ret)
+{
+	if (utils_white_space(line[idx]) || line[idx] == '1' || line[idx] == '0' || \
+		line[idx] == 'N' || line[idx] == 'S' || line[idx] == 'W' || line[idx] == 'E')
+	{
+		*map = utils_strjoin(*map, line);
+		if (gnl_ret != 0 && line[idx])
+			*map = utils_strjoin(*map, "\n");
+		// free(line);//line free확인하기 //@
+		return (1);
+	}
+	return (0);
+}
+
+// int	info_read_other(char *line, int idx, t_info *info)
+// {
+// 	(void)line;
+// 	(void)idx;
+// 	(void)info;
+// 	return 1;
+// }
+
+int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 {
 	int	idx;
 	int	ret;
@@ -156,14 +181,22 @@ int	read_map_sub(char *line, char **map, t_info *info)
 	idx = 0;
 	while (utils_white_space(line[idx]) == 1)
 		++idx;
-	if (line[idx] != '\0')
-	{
-		printf("%s", "Error\n map: incorrect configuration\n");
-		exit(1);
-	}
-	ret = read_map_setting(line, idx, info);
-	if (ret == 2)
+
+	//test
+	printf("2: %s\n", line);
+
+	// if (line[idx] == '\0')
+	// {
+	// 	printf("%s", "Error\n map: incorrect configuration\n");
+	// 	exit(1);
+	// }
+
+	//반환값: 2:종료,오류 / 1: 정상작동
+	ret = read_map_setting(line, idx, info);  //map파일에 벽,바닥,천장 읽기
+	if (ret == 0)
 		return (0);
+	else if (ret == 1)
+		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함) //@
 	return (1);
 }
 
@@ -177,7 +210,8 @@ char	*read_map(char *argv, t_info *info)
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("%s", "ERROR\n file open\n");
+		printf("%s", "ERROR\n cannot open file\n");
+		exit(1);
 		return (0);
 	}
 	map = (char *)malloc(sizeof(char) * 2);
@@ -186,7 +220,9 @@ char	*read_map(char *argv, t_info *info)
 	utils_bzero(line, sizeof(char));
 	while ((ret = get_next_line(fd, &line)) != -1)
 	{
-		if (!read_map_sub(line, &map, info))
+		//test
+		printf("1: %s\n", line);
+		if (line && !read_map_sub(line, &map, info, ret))
 			return (0);
 		line = NULL;
 		if (ret == 0)

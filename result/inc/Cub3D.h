@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 12:51:43 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 17:52:31 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +238,17 @@ t_info	*init_info_mlx(void);
 
 /* map_parse.c */
 char	*read_map(char *argv, t_info *info);
-int		read_map_sub(char *line, char **map, t_info *info);
+int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret);
 int		read_map_setting(char *line, int idx, t_info *info);
 int		read_color(char *line, int c, int idx, t_info *info);
 int		read_txt_path(char *line, int first, int second, int idx, t_info *info);
+int	map_check(char *line, char **map, int idx, int gnl_ret);
+
 int		utils_check_txt_execute(char *path);
+int		utils_check_txt_path(char *line);
+int	utils_check_color(char *line, int c, int idx);
+int	texture_set(t_info *info, char *path, int idx);
+
 
 /* texture_set.c */
 int		read_map_path(char *line, char fir, char sec, t_info *info);
