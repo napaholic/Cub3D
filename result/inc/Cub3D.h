@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/10 19:17:00 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 12:51:43 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,14 @@ void	set_DDA(t_wall_data *wall_data, t_info *info, int cur_x);
 void	wall_cast(t_info *info);
 
 /* draw_floor */
-void	render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
+void    draw(t_info *info);
 
-/* engine_run.c */
-void	engine_run(t_info *info);
+/* loop_hook.c */
+void	hook_set(t_info *info);
 int		render(t_info *info);
 void	cal_vec(t_info *info);
+void	render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
+int		raycasting(t_info *info);
 
 /* gnl */
 size_t	utils_strlen(const char *s);
@@ -253,10 +255,10 @@ void	player_move_left(t_info *info);
 void	player_move_right(t_info *info);
 
 /* movement.c */
-void	player_move_front(t_info *info);
-void	player_move_back(t_info *info);
-void	rotate_left(t_info *info);
-void	rotate_right(t_info *info);
+int		player_move_front(t_info *info);
+int		player_move_back(t_info *info);
+int		rotate_left(t_info *info);
+int		rotate_right(t_info *info);
 int		key_update(t_info *info);
 
 /* utils */
