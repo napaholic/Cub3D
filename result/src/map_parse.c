@@ -51,7 +51,7 @@ int	texture_set(t_info *info, char *path, int idx)
 	(void)info;
 	(void)path;
 	(void)idx;
-	return 0;
+	return 1;
 }
 
 // texture_set 안에서 utils_check_txt_execute()로 txtpath 확인하기
@@ -132,8 +132,6 @@ int	read_map_setting(char *line, int idx, t_info *info)
 	int	first;
 	int	second;
 
-	//test
-	printf("3: %s\n", line);
 	if (line[idx] && line[idx + 1])
 	{
 		first = line[idx];
@@ -164,14 +162,6 @@ int	map_check(char *line, char **map, int idx, int gnl_ret)
 	return (0);
 }
 
-// int	info_read_other(char *line, int idx, t_info *info)
-// {
-// 	(void)line;
-// 	(void)idx;
-// 	(void)info;
-// 	return 1;
-// }
-
 int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 {
 	int	idx;
@@ -182,9 +172,6 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	while (utils_white_space(line[idx]) == 1)
 		++idx;
 
-	//test
-	printf("2: %s\n", line);
-
 	// if (line[idx] == '\0')
 	// {
 	// 	printf("%s", "Error\n map: incorrect configuration\n");
@@ -194,9 +181,14 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	//반환값: 2:종료,오류 / 1: 정상작동
 	ret = read_map_setting(line, idx, info);  //map파일에 벽,바닥,천장 읽기
 	if (ret == 0)
+	{
+		printf("%s\n", "end?");
 		return (0);
-	else if (ret == 1)
+	}
+	else
+	{
 		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함) //@
+	}
 	return (1);
 }
 
