@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 17:52:31 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/11 18:32:00 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,8 @@ size_t	utils_strlcat(char *dest, const char *src, size_t dstsize);
 char	*utils_strjoin(char *s1, char *s2);
 char	*utils_strdup(const char *s1);
 int		utils_strchr(char *string);
+char	*utils_substr(char const *s, unsigned int start, size_t len);
+int		utils_get_size(char *str, int idx);
 int		gnl_split(char **string, char **line, int i);
 int		gnl_return(char **string, char **line, int read_size);
 int		get_next_line(int fd, char **line);

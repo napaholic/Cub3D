@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
+/*   Updated: 2022/05/11 18:33:50 by yeju             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Cub3D.h"
 
 int	utils_check_txt_path(char *line)
@@ -54,6 +66,44 @@ int	texture_set(t_info *info, char *path, int idx)
 	return 1;
 }
 
+char	*utils_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	new_len;
+
+	if (s == NULL)
+		return (NULL);
+	if (utils_strlen(s) < start)
+		return (utils_strdup(""));
+	new_len = utils_strlen(s + start);
+	if (new_len < len)
+		len = new_len;
+	substr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	utils_strlcpy(substr, s + start, len + 1);
+	return (substr);
+}
+
+int	utils_get_size(char *str, int idx)
+{
+	int	ret;
+
+	ret = 0;
+	while (utils_isprint(str[idx + ret]) && !utils_white_space(str[idx + ret]))
+		++ret;
+	return (ret);
+}
+
+char *get_texture_path(char *line, int idx)
+{
+	char	*path;
+	
+	idx += 3; //'NO '건너띈부분
+	path = utils_substr(line, idx, utils_get_size(line, idx));
+	return (path);
+}
+
 // texture_set 안에서 utils_check_txt_execute()로 txtpath 확인하기
 int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
@@ -64,10 +114,12 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 		printf("Error\n wrong path: %s\n", line);
 		exit(1);
 	}
-	path = ""; //path만 따로 저장하는 함수 만들기 ->구조체에해야할지고민 //@
+	path = get_texture_path(line, idx); //path만 따로 저장하는 함수
+	if (!path)
+		return (0);
+	utils_check_txt_execute(path); //path가 유효한지 확인
 	//test code
-	//printf("txt path is: %s\n", path);
-	// utils_check_txt_execute(path);
+	printf("txt path is: %s\n", path);
 	while (utils_white_space(line[idx]))
 		++idx;
 	if (first == 'N' && second == 'O')
