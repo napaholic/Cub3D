@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 18:48:52 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 19:28:10 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,19 @@ char	**save_map(char *line_map, t_info *info)
 		info->map->world_map[idx] = (char *)malloc(sizeof(char) * info->map->map_width);
 		utils_bzero(info->map->world_map[idx], sizeof(char) * info->map->map_width);
 	}
+	//malloc한 **map에 map저장
+	info->map->world_map = utils_split(line_map, '\n');
+	//test code
+	// for (int i = 0; i < info->map->map_height + 2; i++)
+	// 	printf("%s ", world_map[i]);
+
+	//set pos
+	// set_pos(info->map->world_map)
+
+
 	//map check
+	// save_map_check(map);
+	
 	//set pos? & 잘못된 pos일 경우
 	info->map->world_map = 0;
 	free(line_map);
