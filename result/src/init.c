@@ -79,9 +79,12 @@ int	init_win_img(t_info *info)
 		return (0);
 	printf("현재 map이 저장된 형태:\n%s\n", map);
 	info->map->world_map = save_map(map, info); //map을 이중배열로 저장 (malloc)
+	printf("mlx_new\n");
 	if (!(info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D")))
 		return (0);
-	if (!(info->img/*= image_new(info, info->win_wid, info->win_hei)*/))
+	printf("mlx_new\n");
+//	if (!(info->img/*= image_new(info, info->win_wid, info->win_hei)*/))
+	if (!(info->img = mlx_new_image(info->mlx, info->win_wid, info->win_hei)))
 		return (0);
 	return (1);
 }
