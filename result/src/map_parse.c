@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 12:32:56 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 12:57:36 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,36 @@ int	utils_check_color(char *line, int c, int idx)
 	return (1);
 }
 
+int	get_rgb_value(char *line, int idx)
+{
+	int	rgb=0;
+	// int	r;
+	// int	g;
+	// int	b;
+
+	idx += 1; //F 넘기
+	while (utils_white_space(line[idx]))
+		idx++;
+	printf("\nline: %s", line);
+	printf("\nline[idx]: %c\n", line[idx]);
+
+	// ','까지 숫자 자르는 spilt 사용하기
+
+	// r = line[idx];
+	// g = line[idx];
+	// b = line[idx];
+	//test code
+	// printf("\nr: %d", r);
+	// printf("\ng: %d", g);
+	// printf("\nb: %d\n", b);
+
+	// rgb = r;
+	// rgb = (rgb << 8) + g;
+	// rgb = (rgb << 8) + b;
+	return (rgb);
+}
+
+//@
 int	read_color(char *line, int c, int idx, t_info *info)
 {
 	int	rgb;
@@ -171,16 +201,14 @@ int	read_color(char *line, int c, int idx, t_info *info)
 	{
 		printf("Error\n wrong color\n");
 		exit(1);
-	}	
-	//rgb로 변환해서 rgb에 담기 //@
-	// rgb = rgb로 변환해주는 함수() //@
-	
+	}
+	rgb = get_rgb_value(line, idx); //rgb로 변환해서 rgb에 담기
 	// 저장해주기
 	if (c == 'F')
 		info->floor_color = rgb;
 	else if (c == 'C')
 		info->ceiling_color = rgb;
-	free(line); //txt path랑 color다 읽었으니 free
+	free(line); //free확인하기
 	return (1);
 }
 
@@ -246,7 +274,7 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	}
 	else
 	{
-		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함) //@
+		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함)
 	}
 	return (1);
 }
