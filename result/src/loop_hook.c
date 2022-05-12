@@ -12,9 +12,17 @@
 
 #include "../inc/Cub3D.h"
 
+void    cal_vec(t_info *info)
+{
+	floor_cast(info);
+	wall_cast(info);
+	return ;
+}
+
+
 int	raycasting(t_info *info)
 {
-	// cal_vec(info);
+	cal_vec(info);
 	draw(info);
 	(void)info;
 	return 1;

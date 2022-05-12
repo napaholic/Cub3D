@@ -83,11 +83,12 @@ int	main(int argc, char **argv)
 	// 3. textureLoad
 	if (!init_info(info, argv[1]))
 		exit(1);
+	load_texture(info);
 	// 4. hook & engine renew
 	hook_set(info);
 
 	// 5. free & game end
-	
+	render(info);
 	// 6. leaks check
 	atexit(check_leaks);
 	return (0);

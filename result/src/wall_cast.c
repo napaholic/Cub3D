@@ -46,7 +46,7 @@ int     set_color(t_wall_data *wall_data, t_info *info)
 	else
 		texnum = TEX_WALL_W;
 	(void)info;
-	// color = info->txt[texnum][32 * texY + wall_data->texX];
+	color = info->texture[texnum][32 * texY + wall_data->texX];
 	if (wall_data->side == 1)
 		color = (color >> 1) & 8355711;
 	return (color);

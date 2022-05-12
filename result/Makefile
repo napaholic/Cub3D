@@ -1,6 +1,6 @@
 NAME = Cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-g
+CFLAGS = -Wall -Wextra -Werror -g
 MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
 
 SRCS =	$(addprefix src/, Cub3D.c \
@@ -15,6 +15,7 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					calculate_wall.c \
 					wall_cast.c \
 					draw_floor.c \
+					load_texture.c \
 					utils.c)
 					# engine_run.c \
 					# texture_set.c \

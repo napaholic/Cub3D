@@ -15,10 +15,10 @@
 int	utils_check_txt_path(char *line)
 {
 	int	i;
-	int	j;
+//	int	j;
 
 	i = 0;
-	j = 0;
+//	j = 0;
 	while (utils_white_space(line[i]))
 		++i;
 	if ((line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E') || \
@@ -68,7 +68,7 @@ int	texture_set(t_info *info, char *path, int idx)
 		&info->txt[idx]->img_width, &info->txt[idx]->img_height);
 	if (!info->txt[idx])
 		return (0);
-	info->txt[idx]->data = mlx_get_data_addr(info->txt[idx]->img, \
+	info->txt[idx]->data = (int *)mlx_get_data_addr(info->txt[idx]->img, \
 		&info->txt[idx]->bits_per_pixel, &info->txt[idx]->size_line, &info->txt[idx]->endian);
 	//test code
 	// printf("imgheght: %d\n", info->txt[idx]->img_height);
