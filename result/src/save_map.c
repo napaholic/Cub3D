@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 18:33:47 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:38:37 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	save_map_get_size(char *line_map, t_info *info) //wid, hei는 malloc때 쓰
 	}
 	info->map->map_height = hei;
 	i = 0;
-	while (line_map[i++] != '\0')
+	while (hei--)
 	{
 		//test code
-		printf(" linemap: \n%s\n", line_map);
-		printf(" 1: %d\n", wid);
-		printf(" 2: %d\n", wid2);
+		// printf(" linemap: \n%s\n", line_map);
+		// printf(" 1: %d\n", wid);
+		// printf(" 2: %d\n", wid2);
 		info->map->map_width = wid2;
 		wid = 0;
 		while (line_map[i++] != '\n')
@@ -45,8 +45,8 @@ void	save_map_get_size(char *line_map, t_info *info) //wid, hei는 malloc때 쓰
 			wid2 = wid;
 	}
 	//test code
-	printf("hei: %d\n", info->map->map_height);
-	printf("wid: %d\n", info->map->map_width);
+	// printf("hei: %d\n", info->map->map_height);
+	// printf("wid: %d\n", info->map->map_width);
 	return ;
 }
 
