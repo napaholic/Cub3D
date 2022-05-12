@@ -15,6 +15,7 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					calculate_wall.c \
 					wall_cast.c \
 					draw_floor.c \
+					save_map.c \
 					utils.c)
 					# engine_run.c \
 					# texture_set.c \

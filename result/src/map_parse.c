@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 13:29:46 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:18:42 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	utils_check_txt_path(char *line)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (utils_white_space(line[i]))
 		++i;
 	if ((line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E') || \
@@ -173,22 +171,16 @@ int	get_rgb_value(char *line)
 	line++;
 	while (utils_white_space(*line))
 		line++;
-	//test code
-	// printf("\nline:%s\n", line);
 	split_rgb = utils_split(line, ',');
 	r = utils_atoi(split_rgb[0]);
 	g = utils_atoi(split_rgb[1]);
 	b = utils_atoi(split_rgb[2]);
-	// test code
-	// printf("\nr: %d", r);
-	// printf("\ng: %d", g);
-	// printf("\nb: %d\n", b);
 
 	rgb = r;
 	rgb = (rgb << 8) + g;
 	rgb = (rgb << 8) + b;
 	// test code
-	printf("rgb: %d\n", rgb);
+	// printf("rgb: %d\n", rgb);
 	utils_free_split(split_rgb);
 	return (rgb);
 }
@@ -240,8 +232,7 @@ int	read_map_setting(char *line, int idx, t_info *info)
 
 int	map_check(char *line, char **map, int idx, int gnl_ret)
 {
-	if (utils_white_space(line[idx]) || line[idx] == '1' || line[idx] == '0' || \
-		line[idx] == 'N' || line[idx] == 'S' || line[idx] == 'W' || line[idx] == 'E')
+	if (utils_white_space(line[idx]) || line[idx] == '1' || line[idx] == '0')
 	{
 		*map = utils_strjoin(*map, line);
 		if (gnl_ret != 0 && line[idx])
@@ -257,17 +248,10 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	int	idx;
 	int	ret;
 
-	(void)map;
+	// (void)map;
 	idx = 0;
 	while (utils_white_space(line[idx]) == 1)
 		++idx;
-
-	// if (line[idx] == '\0')
-	// {
-	// 	printf("%s", "Error\n map: incorrect configuration\n");
-	// 	exit(1);
-	// }
-
 	//반환값: 2:종료,오류 / 1: 정상작동
 	ret = read_map_setting(line, idx, info);  //map파일에 벽,바닥,천장 읽기
 	if (ret == 0)
@@ -277,7 +261,7 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	}
 	else
 	{
-		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함)
+		map_check(line, map, idx, gnl_ret); //맵부분만 map(후에 line_map)에 저장
 	}
 	return (1);
 }
@@ -303,7 +287,7 @@ char	*read_map(char *argv, t_info *info)
 	while ((ret = get_next_line(fd, &line)) != -1)
 	{
 		//test
-		printf("1: %s\n", line);
+		// printf("1: %s\n", line);
 		if (line && !read_map_sub(line, &map, info, ret))
 			return (0);
 		line = NULL;
