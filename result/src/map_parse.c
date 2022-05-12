@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 13:28:13 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 13:29:46 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,15 +161,15 @@ int	utils_check_color(char *line, int c, int idx)
 	return (1);
 }
 
-int	get_rgb_value(char *line, int idx)
+int	get_rgb_value(char *line)
 {
-	int	rgb=0;
+	int	rgb;
 	char **split_rgb;
 	int	r;
 	int	g;
 	int	b;
 
-	(void)idx;
+	rgb = 0;
 	line++;
 	while (utils_white_space(*line))
 		line++;
@@ -205,7 +205,7 @@ int	read_color(char *line, int c, int idx, t_info *info)
 		printf("Error\n wrong color\n");
 		exit(1);
 	}
-	rgb = get_rgb_value(line, idx); //rgb로 변환해서 rgb에 담기
+	rgb = get_rgb_value(line); //rgb로 변환해서 rgb에 담기
 	// 저장해주기
 	if (c == 'F')
 		info->floor_color = rgb;

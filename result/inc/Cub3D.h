@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 13:27:59 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 13:30:09 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int		read_map_setting(char *line, int idx, t_info *info);
 int		read_color(char *line, int c, int idx, t_info *info);
 int		read_txt_path(char *line, int first, int second, int idx, t_info *info);
 int	map_check(char *line, char **map, int idx, int gnl_ret);
+int	get_rgb_value(char *line);
 
 int		utils_check_txt_execute(char *path);
 int		utils_check_txt_path(char *line);
