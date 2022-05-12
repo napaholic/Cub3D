@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 17:52:31 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 13:30:09 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,18 +214,11 @@ size_t	utils_strlcat(char *dest, const char *src, size_t dstsize);
 char	*utils_strjoin(char *s1, char *s2);
 char	*utils_strdup(const char *s1);
 int		utils_strchr(char *string);
+char	*utils_substr(char const *s, unsigned int start, size_t len);
+int		utils_get_size(char *str, int idx);
 int		gnl_split(char **string, char **line, int i);
 int		gnl_return(char **string, char **line, int read_size);
 int		get_next_line(int fd, char **line);
-
-/* init_map.c */
-// void	get_map_size(t_info *info);
-// char	**read_world_map(char *argv);
-// int		read_map_path(char *line, char fir, char sec, t_info *info);
-// int		read_map_color(char *line, char fc, t_info *info);
-// int		read_map_setting(char *line, int i, t_info *info);
-// int		read_map(char *line, char **map, int i, int readed);
-// char	*read_line_map(char *argv, t_info info);
 
 /* init.c */
 int		init_textures(t_info *info, int num);
@@ -243,6 +236,7 @@ int		read_map_setting(char *line, int idx, t_info *info);
 int		read_color(char *line, int c, int idx, t_info *info);
 int		read_txt_path(char *line, int first, int second, int idx, t_info *info);
 int	map_check(char *line, char **map, int idx, int gnl_ret);
+int	get_rgb_value(char *line);
 
 int		utils_check_txt_execute(char *path);
 int		utils_check_txt_path(char *line);
@@ -274,6 +268,11 @@ int		utils_read_another(char *line, int i);
 int		utils_read(char **map, char *line, t_info *info);
 int		utils_isprint(int c);
 int		utils_isdigit(int c);
+
+/* utils2.c */
+char		**utils_split(char const *s, char c);
+int			utils_atoi(const char *str);
+void	utils_free_split();
 
 /* wall_cast.c */
 void	set_wall_data(t_wall_data *wall_data, t_info *info);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
+/*   Updated: 2022/05/12 13:29:46 by yeju             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Cub3D.h"
 
 int	utils_check_txt_path(char *line)
@@ -29,32 +41,79 @@ int	utils_check_txt_path(char *line)
 //txt path가 유효한지 확인
 int	utils_check_txt_execute(char *path)
 {
-	int	fd;
+	// int	fd;
 	int	len;
 
 	len = utils_strlen(path);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		close(fd);
-		return (0);
-	}
+	// fd = open(path, O_RDONLY); //이 부분은 texture_set의 mlx_xpm_file_to_image에서 체크해준다.
+	// if (fd == -1)
+	// {
+	// 	close(fd);
+	// 	return (0);
+	// }
 	if (path[len - 1] != 'm' || path[len - 2] != 'p' || \
 		path[len - 3] != 'x' || path[len - 4] != '.')
 		return (0);
 	return (1);
 }
 
-//@
+//실패시 0반환 (파일권한도동일)
 int	texture_set(t_info *info, char *path, int idx)
 {
-	(void)info;
-	(void)path;
-	(void)idx;
-	return 1;
+	if (!utils_check_txt_execute(path))
+		return (0);
+	//test code
+	// printf("txt path is: %s\n", path);
+	info->txt[idx]->img = mlx_xpm_file_to_image(info->mlx, path, \
+		&info->txt[idx]->img_width, &info->txt[idx]->img_height);
+	if (!info->txt[idx])
+		return (0);
+	info->txt[idx]->data = mlx_get_data_addr(info->txt[idx]->img, \
+		&info->txt[idx]->bits_per_pixel, &info->txt[idx]->size_line, &info->txt[idx]->endian);
+	//test code
+	// printf("imgheght: %d\n", info->txt[idx]->img_height);
+	free(path);
+	return (1);
 }
 
-// texture_set 안에서 utils_check_txt_execute()로 txtpath 확인하기
+char	*utils_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	new_len;
+
+	if (s == NULL)
+		return (NULL);
+	if (utils_strlen(s) < start)
+		return (utils_strdup(""));
+	new_len = utils_strlen(s + start);
+	if (new_len < len)
+		len = new_len;
+	substr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	utils_strlcpy(substr, s + start, len + 1);
+	return (substr);
+}
+
+int	utils_get_size(char *str, int idx)
+{
+	int	ret;
+
+	ret = 0;
+	while (utils_isprint(str[idx + ret]) && !utils_white_space(str[idx + ret]))
+		++ret;
+	return (ret);
+}
+
+char *get_texture_path(char *line, int idx)
+{
+	char	*path;
+	
+	idx += 3; //'NO '건너띈부분
+	path = utils_substr(line, idx, utils_get_size(line, idx));
+	return (path);
+}
+
 int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
 	char	*path;
@@ -64,10 +123,10 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 		printf("Error\n wrong path: %s\n", line);
 		exit(1);
 	}
-	path = ""; //path만 따로 저장하는 함수 만들기 ->구조체에해야할지고민 //@
-	//test code
-	//printf("txt path is: %s\n", path);
-	// utils_check_txt_execute(path);
+	path = get_texture_path(line, idx); //path만 따로 저장하는 함수
+	if (!path)
+		return (0);
+	utils_check_txt_execute(path); //path가 유효한지 확인
 	while (utils_white_space(line[idx]))
 		++idx;
 	if (first == 'N' && second == 'O')
@@ -102,6 +161,39 @@ int	utils_check_color(char *line, int c, int idx)
 	return (1);
 }
 
+int	get_rgb_value(char *line)
+{
+	int	rgb;
+	char **split_rgb;
+	int	r;
+	int	g;
+	int	b;
+
+	rgb = 0;
+	line++;
+	while (utils_white_space(*line))
+		line++;
+	//test code
+	// printf("\nline:%s\n", line);
+	split_rgb = utils_split(line, ',');
+	r = utils_atoi(split_rgb[0]);
+	g = utils_atoi(split_rgb[1]);
+	b = utils_atoi(split_rgb[2]);
+	// test code
+	// printf("\nr: %d", r);
+	// printf("\ng: %d", g);
+	// printf("\nb: %d\n", b);
+
+	rgb = r;
+	rgb = (rgb << 8) + g;
+	rgb = (rgb << 8) + b;
+	// test code
+	printf("rgb: %d\n", rgb);
+	utils_free_split(split_rgb);
+	return (rgb);
+}
+
+//@
 int	read_color(char *line, int c, int idx, t_info *info)
 {
 	int	rgb;
@@ -112,16 +204,14 @@ int	read_color(char *line, int c, int idx, t_info *info)
 	{
 		printf("Error\n wrong color\n");
 		exit(1);
-	}	
-	//rgb로 변환해서 rgb에 담기 //@
-	// rgb = rgb로 변환해주는 함수() //@
-	
+	}
+	rgb = get_rgb_value(line); //rgb로 변환해서 rgb에 담기
 	// 저장해주기
 	if (c == 'F')
 		info->floor_color = rgb;
 	else if (c == 'C')
 		info->ceiling_color = rgb;
-	free(line); //txt path랑 color다 읽었으니 free
+	free(line); //free확인하기
 	return (1);
 }
 
@@ -187,7 +277,7 @@ int	read_map_sub(char *line, char **map, t_info *info, int gnl_ret)
 	}
 	else
 	{
-		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함) //@
+		map_check(line, map, idx, gnl_ret); //맵 체크 (직사각형 아닌것도 포함)
 	}
 	return (1);
 }
