@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 12:57:36 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 13:28:13 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,29 +164,32 @@ int	utils_check_color(char *line, int c, int idx)
 int	get_rgb_value(char *line, int idx)
 {
 	int	rgb=0;
-	// int	r;
-	// int	g;
-	// int	b;
+	char **split_rgb;
+	int	r;
+	int	g;
+	int	b;
 
-	idx += 1; //F 넘기
-	while (utils_white_space(line[idx]))
-		idx++;
-	printf("\nline: %s", line);
-	printf("\nline[idx]: %c\n", line[idx]);
-
-	// ','까지 숫자 자르는 spilt 사용하기
-
-	// r = line[idx];
-	// g = line[idx];
-	// b = line[idx];
+	(void)idx;
+	line++;
+	while (utils_white_space(*line))
+		line++;
 	//test code
+	// printf("\nline:%s\n", line);
+	split_rgb = utils_split(line, ',');
+	r = utils_atoi(split_rgb[0]);
+	g = utils_atoi(split_rgb[1]);
+	b = utils_atoi(split_rgb[2]);
+	// test code
 	// printf("\nr: %d", r);
 	// printf("\ng: %d", g);
 	// printf("\nb: %d\n", b);
 
-	// rgb = r;
-	// rgb = (rgb << 8) + g;
-	// rgb = (rgb << 8) + b;
+	rgb = r;
+	rgb = (rgb << 8) + g;
+	rgb = (rgb << 8) + b;
+	// test code
+	printf("rgb: %d\n", rgb);
+	utils_free_split(split_rgb);
 	return (rgb);
 }
 

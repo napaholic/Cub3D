@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 11:37:30 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 13:27:59 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,11 @@ int		utils_read_another(char *line, int i);
 int		utils_read(char **map, char *line, t_info *info);
 int		utils_isprint(int c);
 int		utils_isdigit(int c);
+
+/* utils2.c */
+char		**utils_split(char const *s, char c);
+int			utils_atoi(const char *str);
+void	utils_free_split();
 
 /* wall_cast.c */
 void	set_wall_data(t_wall_data *wall_data, t_info *info);
