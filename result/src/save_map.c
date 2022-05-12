@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 18:38:37 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:48:52 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,19 @@ void	save_map_get_size(char *line_map, t_info *info) //wid, hei는 malloc때 쓰
 
 char	**save_map(char *line_map, t_info *info)
 {
+	int	idx;
+
+	idx = 0;
 	free(info->map->world_map); //init할때 했던 malloc 풀기
-	save_map_get_size(line_map, info);
+	save_map_get_size(line_map, info); //map size 재기
 	//malloc
+	info->map->world_map = (char **)malloc(sizeof(char *) * info->map->map_height);
+	utils_bzero(info->map->world_map, sizeof(char *) * info->map->map_height);
+	while (idx++ < info->map->map_height)
+	{
+		info->map->world_map[idx] = (char *)malloc(sizeof(char) * info->map->map_width);
+		utils_bzero(info->map->world_map[idx], sizeof(char) * info->map->map_width);
+	}
 	//map check
 	//set pos? & 잘못된 pos일 경우
 	info->map->world_map = 0;
