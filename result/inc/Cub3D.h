@@ -55,7 +55,7 @@
 typedef struct	s_img
 {
 	void	*img;
-	char	*data;
+	int 	*data;
 	int		img_width;
 	int		img_height;
 	int		bits_per_pixel;
@@ -278,6 +278,10 @@ void	utils_free_split();
 void	set_wall_data(t_wall_data *wall_data, t_info *info);
 void	set_texture_data(t_wall_data *wall_data, t_info *info);
 int		set_color(t_wall_data *wall_data, t_info *info);
+
+/* load_texture.c */
+void    load_texture(t_info *info);
+void	load_image(t_info *info, int *texture, char *path, t_img *img);
 
 /* loop_hook.c */
 int		loop(t_info *info);
