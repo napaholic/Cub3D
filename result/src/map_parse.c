@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 18:33:50 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 12:32:56 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,39 @@ int	utils_check_txt_path(char *line)
 //txt path가 유효한지 확인
 int	utils_check_txt_execute(char *path)
 {
-	int	fd;
+	// int	fd;
 	int	len;
 
 	len = utils_strlen(path);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		close(fd);
-		return (0);
-	}
+	// fd = open(path, O_RDONLY); //이 부분은 texture_set의 mlx_xpm_file_to_image에서 체크해준다.
+	// if (fd == -1)
+	// {
+	// 	close(fd);
+	// 	return (0);
+	// }
 	if (path[len - 1] != 'm' || path[len - 2] != 'p' || \
 		path[len - 3] != 'x' || path[len - 4] != '.')
 		return (0);
 	return (1);
 }
 
-//@
+//실패시 0반환 (파일권한도동일)
 int	texture_set(t_info *info, char *path, int idx)
 {
-	(void)info;
-	(void)path;
-	(void)idx;
-	return 1;
+	if (!utils_check_txt_execute(path))
+		return (0);
+	//test code
+	// printf("txt path is: %s\n", path);
+	info->txt[idx]->img = mlx_xpm_file_to_image(info->mlx, path, \
+		&info->txt[idx]->img_width, &info->txt[idx]->img_height);
+	if (!info->txt[idx])
+		return (0);
+	info->txt[idx]->data = mlx_get_data_addr(info->txt[idx]->img, \
+		&info->txt[idx]->bits_per_pixel, &info->txt[idx]->size_line, &info->txt[idx]->endian);
+	//test code
+	// printf("imgheght: %d\n", info->txt[idx]->img_height);
+	free(path);
+	return (1);
 }
 
 char	*utils_substr(char const *s, unsigned int start, size_t len)
@@ -104,7 +114,6 @@ char *get_texture_path(char *line, int idx)
 	return (path);
 }
 
-// texture_set 안에서 utils_check_txt_execute()로 txtpath 확인하기
 int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 {
 	char	*path;
@@ -118,8 +127,6 @@ int	read_txt_path(char *line, int first, int second, int idx, t_info *info)
 	if (!path)
 		return (0);
 	utils_check_txt_execute(path); //path가 유효한지 확인
-	//test code
-	printf("txt path is: %s\n", path);
 	while (utils_white_space(line[idx]))
 		++idx;
 	if (first == 'N' && second == 'O')

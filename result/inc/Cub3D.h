@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 18:32:00 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 11:37:30 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,15 +219,6 @@ int		utils_get_size(char *str, int idx);
 int		gnl_split(char **string, char **line, int i);
 int		gnl_return(char **string, char **line, int read_size);
 int		get_next_line(int fd, char **line);
-
-/* init_map.c */
-// void	get_map_size(t_info *info);
-// char	**read_world_map(char *argv);
-// int		read_map_path(char *line, char fir, char sec, t_info *info);
-// int		read_map_color(char *line, char fc, t_info *info);
-// int		read_map_setting(char *line, int i, t_info *info);
-// int		read_map(char *line, char **map, int i, int readed);
-// char	*read_line_map(char *argv, t_info info);
 
 /* init.c */
 int		init_textures(t_info *info, int num);
