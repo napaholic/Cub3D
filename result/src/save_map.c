@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 19:28:10 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 19:38:09 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,32 @@ void	save_map_get_size(char *line_map, t_info *info) //wid, hei는 malloc때 쓰
 	return ;
 }
 
+void	set_pos(char **world_map, t_info *info)
+{
+	int	wid;
+	int	hei;
+
+	hei = 0;
+	while (hei < info->map->map_height)
+	{
+		wid = 0;
+		while (wid < info->map->map_width)
+		{
+			if (world_map[hei][wid] == 'N' || world_map[hei][wid] == 'W' || \
+				world_map[hei][wid] == 'E' || world_map[hei][wid] == 'S')
+				{
+					info->pos->pos_x = (double)wid;
+					info->pos->pos_y = (double)hei;
+				}
+			wid++;
+		}
+		hei++;
+	}
+	//test code
+	printf("posx: %f\n", info->pos->pos_x);
+	printf("posy: %f\n", info->pos->pos_y);
+}
+
 char	**save_map(char *line_map, t_info *info)
 {
 	int	idx;
@@ -72,7 +98,12 @@ char	**save_map(char *line_map, t_info *info)
 	// 	printf("%s ", world_map[i]);
 
 	//set pos
-	// set_pos(info->map->world_map)
+	set_pos(info->map->world_map, info); //pos도 당연히 인덱스값이라 -1상태
+	if (info->pos->pos_x == -20.0 || info->pos->pos_y == -20.0)
+	{
+		printf("Error\n pos setting");
+		exit(1);
+	}
 
 
 	//map check
