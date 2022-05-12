@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 13:30:09 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/12 18:07:25 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,13 +157,13 @@ typedef struct	s_info
 	//고정으로 바꿔도 되는 창 크기
 	int		win_wid;
 	int		win_hei;
-	int buf[640][480];
+	int		buf[640][480];
 
 	//바닥, 천장 색깔
 	int		floor_color;
 	int		ceiling_color;
 	//텍스쳐 배열
-	int     **texture;
+	int		**texture;
 	//구조체
 	t_pos	*pos;
 	t_key	*key;
@@ -282,5 +282,8 @@ int		set_color(t_wall_data *wall_data, t_info *info);
 /* loop_hook.c */
 int		loop(t_info *info);
 void	hook_set(t_info *info);
+
+/* save_map.c */
+char	**save_map(char *line_map, t_info *info);
 
 # endif
