@@ -7,7 +7,6 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					get_next_line.c \
 					get_next_line_utils.c \
 					map_parse.c \
-					parse.c \
 					movement.c \
 					init.c \
 					loop_hook.c \
@@ -17,6 +16,7 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					draw_floor.c \
 					load_texture.c \
 					save_map.c \
+					hook_func.c \
 					utils.c)
 					# engine_run.c \
 					# texture_set.c \

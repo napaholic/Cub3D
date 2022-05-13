@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 09:09:59 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 15:37:01 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,17 +192,17 @@ void	set_texture_vec(t_floordata *floor, t_info *info);
 void	set_texture_num(t_floordata *floor);
 void	floor_cast(t_info *info);
 void	init_DDA_cast(t_wall_data *wall_data, t_info *info);
+void	calc_perp_dist(t_wall_data *wall_data, t_info *info);
+void	set_dda(t_wall_data *wall_data, t_info *info, int cur_x);
+void	wall_cast(t_info *info, t_wall_data *wall_data, int count);
 void	stepProgress_until_hit(t_wall_data *wall_data, t_info *info);
-double	calc_perp_dist(t_wall_data *wall_data, t_info *info);
-void	set_DDA(t_wall_data *wall_data, t_info *info, int cur_x);
-void	wall_cast(t_info *info);
 
 /* draw_floor */
 void    draw(t_info *info);
 
 /* loop_hook.c */
 void	hook_set(t_info *info);
-int		render(t_info *info);
+int	render(t_info *info);
 void	cal_vec(t_info *info);
 void	render_floor(t_floordata *floor, t_info *info, int cur_x, int cur_y);
 int		raycasting(t_info *info);
@@ -251,8 +251,10 @@ int		read_map_color(char *line, char fc, t_info *info);
 
 /* mov_cal.c */
 int		empty_chk_map(t_map *map, int x, int y);
-void	player_move_left(t_info *info);
-void	player_move_right(t_info *info);
+int		player_move_left(t_info *info);
+int		player_move_right(t_info *info);
+int		rotate_left(t_info *info);
+int		rotate_right(t_info *info);
 
 /* movement.c */
 int		player_move_front(t_info *info);

@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 09:51:14 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 10:15:53 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,41 @@ int	init_player(t_info *info)
 	return (1);
 }
 
+int	init_img(t_info *info, int win_wid, int win_hei)
+{
+	t_img	*img;
+
+	img = (t_img *)malloc(sizeof(t_img));
+	if (!img)
+		return (0);
+	utils_bzero(img, sizeof(t_img));
+	img->img = mlx_new_image(info->mlx, win_wid, win_hei);
+	if (!img->img)
+		return (0);
+	img->data = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_line, &img->endian);
+	img->img_width = win_wid;
+	img->img_height = win_hei;
+	info->img = img;
+	return (1);
+}
+
 int	init_win_img(t_info *info)
 {
 	char	*map;
+	int		init_img_ret;
 
 	map = read_map(info->map->map_name, info); //map 읽기
 	if (!map)
 		return (0);
 	info->map->world_map = save_map(map, info); //map을 이중배열로 저장 (malloc)
-	if (!(info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D")))
+	if (!info->map->world_map)
 		return (0);
-	// if (!(info->img/*= image_new(info, info->win_wid, info->win_hei)*/))
-	// 	return (0); //여기서 0 반환@
+	info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D");
+	if (!info->win)
+		return (0);
+	init_img_ret = init_img(info, info->win_wid, info->win_hei);
+	if (!init_img_ret)
+		return (0);
 	return (1);
 }
 

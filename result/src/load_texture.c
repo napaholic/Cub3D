@@ -25,4 +25,5 @@ void    load_texture(t_info *info)
 	load_image(info, info->texture[4], "../textures/floor.xpm", &img);
 	load_image(info, info->texture[5], "../textures/floor2.xpm", &img);
 	load_image(info, info->texture[6], "../textures/blue_block.xpm", &img);
+	printf("?");
 }

@@ -1,23 +1,23 @@
 #include "../inc/Cub3D.h"
 
-void    set_wall_data(t_wall_data *wall_data, t_info *info)
+void	set_wall_data(t_wall_data *wall_data, t_info *info)
 {
-	wall_data->lineheight = (int)(info->win_hei / wall_data->perp_wall_dist * 1);
-	wall_data->draw_start = -wall_data->lineheight / 2 + info->win_hei / 2;
+	wall_data->lineheight = (int)(info->win_hei / wall_data->perp_wall_dist);
+	wall_data->draw_start = -wall_data->lineheight / 2 + ((info->win_hei / 2) * wall_data->camera_x);
 	if (wall_data->draw_start < 0)
-		wall_data->draw_end = 0;
-	wall_data->draw_end = wall_data->lineheight / 2 + info->win_hei / 2;
+		wall_data->draw_start = 0;
+	wall_data->draw_end = wall_data->lineheight / 2 + ((info->win_hei / 2) * wall_data->camera_x);
 	if (wall_data->draw_end >= info->win_hei)
 		wall_data->draw_end = info->win_hei - 1;
 	//wall_data->step_x = x_sign
-	if (wall_data->side == 0)
-		wall_data->wallx = info->pos->pos_y + wall_data->perp_wall_dist * wall_data->raydir_y;
-	else
-		wall_data->wallx = info->pos->pos_x + wall_data->perp_wall_dist * wall_data->raydir_x;
-	wall_data->wallx -= floor((wall_data->wallx));
+	// if (wall_data->side == 0)
+	// 	wall_data->wallx = info->pos->pos_y + wall_data->perp_wall_dist * wall_data->raydir_y;
+	// else
+	// 	wall_data->wallx = info->pos->pos_x + wall_data->perp_wall_dist * wall_data->raydir_x;
+	// wall_data->wallx -= floor((wall_data->wallx));
 }
 
-void    set_texture_data(t_wall_data *wall_data, t_info *info)
+void	set_texture_data(t_wall_data *wall_data, t_info *info)
 {
 	wall_data->texX = (int)(wall_data->wallx * (double)32);
 	if (wall_data->side == 0 && wall_data->raydir_x > 0)
@@ -29,7 +29,7 @@ void    set_texture_data(t_wall_data *wall_data, t_info *info)
 			* wall_data->step_val;
 }
 
-int     set_color(t_wall_data *wall_data, t_info *info)
+int		set_color(t_wall_data *wall_data, t_info *info)
 {
 	int texY;
 	int color=0; //=0
