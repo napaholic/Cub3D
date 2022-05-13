@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 18:11:23 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 18:14:33 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,6 @@ int		read_map_sub(char *line, char **map, t_info *info, int gnl_ret);
 char	*read_map(char *argv, t_info *info);
 
 /* mov_cal.c */
-void	player_move_right(t_info *info);
-void	player_move_left(t_info *info);
 void	rotate_mouse(t_info *info);
 
 /* movement.c */

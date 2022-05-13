@@ -6,49 +6,11 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:49:58 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 18:05:15 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 18:14:24 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
-
-void	player_move_right(t_info *info)
-{
-	double	mvx;
-	double	mvy;
-
-	mvx = -info->pos->dir_y * info->pos->move_speed;
-	mvy = info->pos->dir_x * info->pos->move_speed;
-	if (info->map->world_map[(int)info->pos->pos_y] \
-		[(int)(info->pos->pos_x + mvx)] == '0')
-	{
-		info->pos->pos_x += mvx;
-	}
-	if (info->map->world_map[(int)(info->pos->pos_y + mvy)] \
-		[(int)info->pos->pos_x] == '0')
-	{
-		info->pos->pos_y += mvy;
-	}
-}
-
-void	player_move_left(t_info *info)
-{
-	double	mvx;
-	double	mvy;
-
-	mvx = info->pos->dir_y * info->pos->move_speed;
-	mvy = -info->pos->dir_x * info->pos->move_speed;
-	if (info->map->world_map[(int)info->pos->pos_y] \
-		[(int)(info->pos->pos_x + mvx)] == '0')
-	{
-		info->pos->pos_x += mvx;
-	}
-	if (info->map->world_map[(int)(info->pos->pos_y + mvy)] \
-		[(int)info->pos->pos_x] == '0')
-	{
-		info->pos->pos_y += mvy;
-	}
-}
 
 void	rotate_mouse(t_info *info)
 {
