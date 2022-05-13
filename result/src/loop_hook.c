@@ -6,34 +6,52 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:31:53 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 09:50:42 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 16:44:41 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-void    cal_vec(t_info *info)
+// void	cal_vec(t_info *info)
+// {
+// 	// floor_cast(info);
+// 	wall_cast(info);
+// 	return ;
+// }
+
+//draw나 clac에서 실패하는 경우가 있으면 return0하가
+// int	raycasting(t_info *info)
+// {
+// 	cal_vec(info);
+// 	draw(info);
+// 	return (1);
+// }
+
+void	wall_cast(t_info *info, t_wall_data *wall_data, int count)
 {
-	floor_cast(info);
-	wall_cast(info);
+	set_dda(wall_data, info, count);
+	init_DDA_cast(wall_data, info);
+	stepProgress_until_hit(wall_data, info);
+	calc_perp_dist(wall_data, info);
+	set_wall_data(wall_data, info);
 	return ;
 }
 
-
 int	raycasting(t_info *info)
 {
-	cal_vec(info);
-	// draw(info);
-	(void)info;
-	return 1;
-}
+	t_wall_data	*wall_data;
+	int			count;
 
-int	render(t_info *info)
-{
-	if (!raycasting(info)) //cal, draw
-		exit(1);
-	key_update(info);
-	return (0);
+	wall_data = (t_wall_data *)malloc(sizeof(t_wall_data));
+	if (!wall_data)
+		return (0);
+	utils_bzero(wall_data, sizeof(t_wall_data));
+	count = 0;
+	while (count++ < info->win_wid)
+		wall_cast(info, wall_data, count);
+	mlx_put_image_to_window(info->mlx, info->win, info->img->img, 0, 0);
+	free(wall_data);
+	return (1);
 }
 
 void	hook_set(t_info *info)
