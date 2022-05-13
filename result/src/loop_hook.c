@@ -6,32 +6,17 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:31:53 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 16:44:41 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 17:46:32 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-// void	cal_vec(t_info *info)
-// {
-// 	// floor_cast(info);
-// 	wall_cast(info);
-// 	return ;
-// }
-
-//draw나 clac에서 실패하는 경우가 있으면 return0하가
-// int	raycasting(t_info *info)
-// {
-// 	cal_vec(info);
-// 	draw(info);
-// 	return (1);
-// }
-
 void	wall_cast(t_info *info, t_wall_data *wall_data, int count)
 {
 	set_dda(wall_data, info, count);
-	init_DDA_cast(wall_data, info);
-	stepProgress_until_hit(wall_data, info);
+	init_dda_cast(wall_data, info);
+	step_progress_until_hit(wall_data, info);
 	calc_perp_dist(wall_data, info);
 	set_wall_data(wall_data, info);
 	return ;

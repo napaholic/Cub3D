@@ -10,14 +10,14 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					movement.c \
 					init.c \
 					loop_hook.c \
-					calculate_floor.c \
 					calculate_wall.c \
 					wall_cast.c \
-					draw_floor.c \
-					load_texture.c \
 					save_map.c \
 					hook_func.c \
 					utils.c)
+					# load_texture.c \
+					# draw_floor.c \
+					# calculate_floor.c \
 					# engine_run.c \
 					# texture_set.c \
 					# draw_floor.c \

@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:17:02 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/13 10:15:53 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 17:47:28 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	init_player(t_info *info)
 	info->pos->pos_y = -20.0;
 	info->pos->dir_x = 1.0;
 	info->pos->dir_y = 0.0;
-	info->pos->plane_x = -20.0;
-	info->pos->plane_y = -20.0;
+	info->pos->plane_x = 0;
+	info->pos->plane_y = 0.66;
 	info->pos->move_speed = 0.10;
 	info->pos->rot_speed = 0.10;
 	return (1);
@@ -81,52 +81,10 @@ int	init_img(t_info *info, int win_wid, int win_hei)
 	img->img = mlx_new_image(info->mlx, win_wid, win_hei);
 	if (!img->img)
 		return (0);
-	img->data = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_line, &img->endian);
+	img->data = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
+		&img->size_line, &img->endian);
 	img->img_width = win_wid;
 	img->img_height = win_hei;
 	info->img = img;
 	return (1);
-}
-
-int	init_win_img(t_info *info)
-{
-	char	*map;
-	int		init_img_ret;
-
-	map = read_map(info->map->map_name, info); //map 읽기
-	if (!map)
-		return (0);
-	info->map->world_map = save_map(map, info); //map을 이중배열로 저장 (malloc)
-	if (!info->map->world_map)
-		return (0);
-	info->win = mlx_new_window(info->mlx, info->win_wid, info->win_hei, "cub3D");
-	if (!info->win)
-		return (0);
-	init_img_ret = init_img(info, info->win_wid, info->win_hei);
-	if (!init_img_ret)
-		return (0);
-	return (1);
-}
-
-int	init_info(t_info *info, char *argv)
-{
-	if (!init_textures(info, 4) || !init_map(info, argv) || \
-	!init_key(info) || !init_player(info) || !init_win_img(info))
-		return (0);
-	return (1);
-}
-
-t_info	*init_info_mlx(void)
-{
-	t_info	*info;
-
-	if (!(info = (t_info *)malloc(sizeof(t_info))))
-		exit(1);
-	utils_bzero(info, sizeof(t_info));
-	info->mlx = mlx_init();
-	if (!info->mlx)
-		return (0);
-	info->win_wid = 640;
-	info->win_hei = 480;
-	return (info);
 }
