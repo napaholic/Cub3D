@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:31:53 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 12:52:35 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 09:50:42 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    cal_vec(t_info *info)
 int	raycasting(t_info *info)
 {
 	cal_vec(info);
-	draw(info);
+	// draw(info);
 	(void)info;
 	return 1;
 }

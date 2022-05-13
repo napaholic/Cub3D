@@ -75,7 +75,7 @@ void    set_DDA(t_wall_data *wall_data, t_info *info, int cur_x)
 	wall_data->map_pos_x = (int)(info->pos->pos_x);
 	wall_data->map_pos_y = (int)(info->pos->pos_y);
 	init_DDA_cast(wall_data, info);
-	stepProgress_until_hit(wall_data, info);
+	// stepProgress_until_hit(wall_data, info);
 	wall_data->perp_wall_dist = calc_perp_dist(wall_data, info);
 }
 

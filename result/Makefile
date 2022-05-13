@@ -1,7 +1,7 @@
 NAME = Cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
+MFLAGS = -L ./mlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 SRCS =	$(addprefix src/, Cub3D.c \
 					get_next_line.c \

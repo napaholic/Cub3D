@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:51:55 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/11 12:49:14 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 09:55:06 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,12 @@ int	main(int argc, char **argv)
 	// 2. vector & mlx init, mlx_new_window
 	// 3. textureLoad
 	if (!init_info(info, argv[1]))
+	{
+		printf("Error\n init error");
 		exit(1);
-	load_texture(info);
+	}
+
+	// load_texture(info);
 	// 4. hook & engine renew
 	hook_set(info);
 

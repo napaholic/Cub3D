@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/12 18:07:25 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/13 09:09:59 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 typedef struct	s_img
 {
 	void	*img;
-	int 	*data;
+	char 	*data;
 	int		img_width;
 	int		img_height;
 	int		bits_per_pixel;
