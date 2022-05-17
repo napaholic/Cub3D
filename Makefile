@@ -19,6 +19,7 @@ SRCS =	$(addprefix src/, Cub3D.c \
 					save_map.c \
 					hook_func.c \
 					get_direction.c \
+					flood_fill.c \
 					utils.c \
 					utils2.c)
 					# load_texture.c \

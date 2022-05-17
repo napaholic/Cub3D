@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 15:23:15 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 18:38:46 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,5 +256,8 @@ void	set_west(t_info *info, int hei, int wid);
 void	set_east(t_info *info, int hei, int wid);
 void	set_south(t_info *info, int hei, int wid);
 void	get_direction(t_info *info, char **world_map, int hei, int wid);
+
+/* flood_fill.c */
+int	flood_fill(int pox, int poy, t_info *info);
 
 # endif
