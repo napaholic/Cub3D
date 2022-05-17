@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 13:03:03 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 14:07:33 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,22 @@ void	get_direction(int dir_x, int dir_y, double pl_x, double pl_y, t_info *info)
 
 }
 
+void	get_direction(int dir_x, int dir_y, double pl_x, double pl_y, t_info *info)
+{
+	info->pos->dir_x = dir_x;
+	info->pos->dir_y = dir_y;
+	info->pos->plane_x = pl_x;
+	info->pos->plane_y = pl_y;
+	return ;
+}
+
 void	set_pos(char **world_map, t_info *info)
 {
 	int	wid;
 	int	hei;
+	int	flag;
 
+	flag = 0;
 	hei = 0;
 	while (hei < info->map->map_height)
 	{
@@ -74,6 +85,7 @@ void	set_pos(char **world_map, t_info *info)
 			if (world_map[hei][wid] == 'N' || world_map[hei][wid] == 'W' || \
 				world_map[hei][wid] == 'E' || world_map[hei][wid] == 'S')
 			{
+				flag += 1;
 				info->pos->pos_x = (double)wid;
 				info->pos->pos_y = (double)hei;
 			}
@@ -88,6 +100,11 @@ void	set_pos(char **world_map, t_info *info)
 			wid++;
 		}
 		hei++;
+	}
+	if (flag != 1)
+	{
+		printf("%s\n", "have 2 player");
+		exit(1);
 	}
 }
 
