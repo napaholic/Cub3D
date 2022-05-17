@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:07 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 12:43:41 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 13:03:03 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ void	save_map_get_size(char *line_map, t_info *info)
 	return ;
 }
 
-// void	get_direction(int i, int j, t_info *info)
-// {
-	
-// }
+void	get_direction(int dir_x, int dir_y, double pl_x, double pl_y, t_info *info)
+{
+	info->pos->dir_x = dir_x;
+	info->pos->dir_y = dir_y;
+	info->pos->plane_x = pl_x;
+	info->pos->plane_y = pl_y;
+
+}
 
 void	set_pos(char **world_map, t_info *info)
 {
@@ -73,14 +77,14 @@ void	set_pos(char **world_map, t_info *info)
 				info->pos->pos_x = (double)wid;
 				info->pos->pos_y = (double)hei;
 			}
-			// if (world_map[hei][wid] == 'N')
-			// 	get_direction(0, -1, info);
-			// else if (world_map[hei][wid] == 'W')
-			// 	get_direction(-1, 0, info);
-			// else if (world_map[hei][wid] == 'E')
-			// 	get_direction(1, 0, info);
-			// else if (world_map[hei][wid] == 'S')
-			// 	get_direction(0, 1, info);
+			if (world_map[hei][wid] == 'N')
+				get_direction(0, -1, 0.66, 0.0, info);
+			else if (world_map[hei][wid] == 'W')
+				get_direction(-1, 0, 0.0, -0.66, info);
+			else if (world_map[hei][wid] == 'E')
+				get_direction(1, 0, 0.0, 0.66, info);
+			else if (world_map[hei][wid] == 'S')
+				get_direction(0, 1, -0.66, 0.0, info);
 			wid++;
 		}
 		hei++;

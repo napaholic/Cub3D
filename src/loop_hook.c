@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 13:31:53 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 12:16:38 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 13:02:35 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	raycasting(t_info *info)
 {
 	t_wall_data	*wall_data;
 	int			count;
-	int			y;
+	// int			y;
 
 	wall_data = (t_wall_data *)malloc(sizeof(t_wall_data));
 	if (!wall_data)
