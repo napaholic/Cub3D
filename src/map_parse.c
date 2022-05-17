@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:16:26 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 12:13:16 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 15:20:30 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	texture_set(t_info *info, char *path, int idx)
 		&info->txt[idx]->img_width, &info->txt[idx]->img_height);
 	if (!info->txt[idx])
 		return (0);
-	info->txt[idx]->data = (int*)mlx_get_data_addr(info->txt[idx]->img, \
+	info->txt[idx]->data = mlx_get_data_addr(info->txt[idx]->img, \
 		&info->txt[idx]->bits_per_pixel, &info->txt[idx]->size_line, \
 			&info->txt[idx]->endian);
 	free(path);

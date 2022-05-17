@@ -6,7 +6,7 @@
 /*   By: yeju <yeju@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 15:28:46 by yeju              #+#    #+#             */
-/*   Updated: 2022/05/17 13:02:28 by yeju             ###   ########.fr       */
+/*   Updated: 2022/05/17 15:23:15 by yeju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,5 +249,12 @@ void	utils_free_split(char **split_rgb);
 void	set_wall_data(t_wall_data *wall_data, t_info *info);
 void	set_texture_data(t_info *info, t_wall_data *wall_data, t_img *txt, int count);
 int		set_color(t_wall_data *wall_data, t_info *info);
+
+/* get_direction.c */
+void	set_north(t_info *info, int hei, int wid);
+void	set_west(t_info *info, int hei, int wid);
+void	set_east(t_info *info, int hei, int wid);
+void	set_south(t_info *info, int hei, int wid);
+void	get_direction(t_info *info, char **world_map, int hei, int wid);
 
 # endif
